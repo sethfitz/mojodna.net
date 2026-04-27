@@ -27,12 +27,12 @@ export default function (eleventyConfig) {
   // Token order matters: longer tokens (%-d) come before their shorter forms (%d).
   const monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   eleventyConfig.addLiquidFilter("date", (date, format) => {
-    if (date === "now" || date === "today") date = new Date();
+    if (date === "now") date = new Date();
     if (!(date instanceof Date)) date = new Date(date);
     const tokens = {
-      "%Y": date.getUTCFullYear(),
+      "%Y": String(date.getUTCFullYear()),
       "%m": String(date.getUTCMonth() + 1).padStart(2, "0"),
-      "%-d": date.getUTCDate(),
+      "%-d": String(date.getUTCDate()),
       "%d": String(date.getUTCDate()).padStart(2, "0"),
       "%b": monthsShort[date.getUTCMonth()],
       "%H": String(date.getUTCHours()).padStart(2, "0"),
