@@ -42,13 +42,13 @@ functionality would fit better within the object (so it would be used
 appropriately in the majority case without any extra thought). In this case,
 by overriding `String#to_s`.
 
-{% highlight ruby %}
+```ruby
 module FormattedText
   def to_s
     # filter and output
   end
 end
-{% endhighlight %}
+```
 
 The next step was making sure that only attributes known to contain formatted
 text were extended by `FormattedText` (and that the internal representation
@@ -57,7 +57,7 @@ database). A side-effect of this is that changing the value that was returned
 and saving the object will not save the new value back to the database; to get
 around this, you'll need to set the value on the AR object itself.
 
-{% highlight ruby %}
+```ruby
 # Quick and dirty monkey-patch (should work with 1.1.x+)
 class ActiveRecord::Base
   # Attribute extension
@@ -104,7 +104,7 @@ class ActiveRecord::Base
     end
   end
 end
-{% endhighlight %}
+```
 
 An alternate way to implement this pattern would have been to use
 `composed_of` and to create a `FormattedText` class that extend `String`. That

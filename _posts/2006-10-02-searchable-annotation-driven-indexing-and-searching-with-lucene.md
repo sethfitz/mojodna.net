@@ -48,10 +48,10 @@ should only be one per class hierarchy.
 
 e.g.:
 
-{% highlight java %}
+```java
 @ID
 public Integer getKey() { ... }
-{% endhighlight %}
+```
 
 #### @Indexed
 
@@ -69,10 +69,10 @@ available:
 
 e.g.:
 
-{% highlight java %}
+```java
 @Indexed(boost=2.0F)
 public String getName() { ... }
-{% endhighlight %}
+```
 
 #### @Stored
 
@@ -87,10 +87,10 @@ time to time. The following attributes are available:
 
 e.g.:
 
-{% highlight java %}
+```java
 @Stored
 public String getDescription() { ... }
-{% endhighlight %}
+```
 
 #### @Sortable
 
@@ -103,11 +103,11 @@ sorting results in Lucene. The following attribute is available:
 
 e.g.:
 
-{% highlight java %}
+```java
 @Indexed
 @Sortable
 public String getName() { ... }
-{% endhighlight %}
+```
 
 #### @DefaultFields
 
@@ -119,10 +119,10 @@ Used during the search process.
 
 e.g.:
 
-{% highlight java %}
+```java
 @DefaultFields( { "name", "address.city" } )
 public class Person implements Searchable { ... }
-{% endhighlight %}
+```
 
 #### @Excerptable
 
@@ -133,11 +133,11 @@ object from Hibernate Session by using _session.load()_.
 
 e.g.:
 
-{% highlight java %}
+```java
 @Indexed
 @Excerptable
 public String getDescription() { ... }
-{% endhighlight %}
+```
 
 ### Extension Points
 
@@ -210,7 +210,7 @@ This example demonstrates how to use Searchable without using the annotations.
 
 _AddressIndexer.java:_
 
-{% highlight java %}
+```java
 /**
  * Indexes Addresses.
  */
@@ -239,11 +239,11 @@ public class AddressIndexer extends AbstractIndexer implements Indexer {
         delete( "address", address.getId() );
     }
 }
-{% endhighlight %}
+```
 
 _AddressSearcher.java:_
 
-{% highlight java %}
+```java
 /**
  * Searches Addresses.
  */
@@ -257,11 +257,11 @@ public class AddressSearcher extends AbstractSearcher implements Searcher {
         return doSearch( query );
     }
 }
-{% endhighlight %}
+```
 
 _AddressIndexTest.java:_
 
-{% highlight java %}
+```java
 // ...
 public void test() throws Exception {
     AddressIndexer indexer = new AddressIndexer();
@@ -277,7 +277,7 @@ public void test() throws Exception {
     GenericResult gr = (GenericResult) result;
     assertEquals( "address", gr.getType() );
 }
-{% endhighlight %}
+```
 
 #### Simple Annotation-Driven Example
 
@@ -285,7 +285,7 @@ This example demonstrates the basics of annotation-driven indexing.
 
 _SearchableBean.java:_
 
-{% highlight java %}
+```java
 /**
  * Implementation of Searchable to be indexed.
  *
@@ -318,11 +318,11 @@ public class SearchableBean extends AbstractResult implements Searchable {
         this.name = name;
     }
 }
-{% endhighlight %}
+```
 
 _IndexManager.java:_
 
-{% highlight java %}
+```java
 // ...
 public void index(SearchableBean bean) throws IndexingException {
     BeanIndexer bi = new BeanIndexer();
@@ -337,11 +337,11 @@ public ResultSet search(String query) throws SearchException {
     // in order to refresh it properly
     return bs.search( query );
 }
-{% endhighlight %}
+```
 
 _IndexManagerTest.java:_
 
-{% highlight java %}
+```java
 // ...
 public void testSearch() throws Exception {
     IndexManager im = new IndexManager();
@@ -354,7 +354,7 @@ public void testSearch() throws Exception {
     // name has not been set
     assertNull( result.getName() );
 }
-{% endhighlight %}
+```
 
 #### Hybrid Example
 
@@ -363,7 +363,7 @@ _TeapotIndexer_ can operate in batch mode.
 
 _Teapot.java:_
 
-{% highlight java %}
+```java
 /**
  * A representation of a teapot.  When searching the Teapot index, only the
  * "name" and "description" fields will be searched by default (if
@@ -405,11 +405,11 @@ public interface Teapot extends Searchable {
     @Excerptable
     public String getDescription();
 }
-{% endhighlight %}
+```
 
 _TeapotIndexer.java:_
 
-{% highlight java %}
+```java
 /**
  * Indexes teapots.
  */
@@ -443,11 +443,11 @@ public class TeapotIndexer extends AbstractBeanIndexer implements BatchIndexer<T
         doc.add( Field.UnStored("owner", "Nathan") );
     }
 }
-{% endhighlight %}
+```
 
 _TeapotSearcher.java:_
 
-{% highlight java %}
+```java
 /**
  * Searches teapots.
  */
@@ -473,11 +473,11 @@ public class TeapotSearcher extends AbstractSearcher implements Searcher<Teapot>
         return results;
     }
 }
-{% endhighlight %}
+```
 
 _TeapotTest.java:_
 
-{% highlight java %}
+```java
 // ...
 public void test() throws Exception {
     BatchIndexer<Teapot> indexer = new TeapotIndexer();
@@ -495,7 +495,7 @@ public void test() throws Exception {
     assertTrue( secondResult.getDescription().contains("wireframe") );
     assertTrue( secondResult.getSearchExtract().contains("wireframe") );
 }
-{% endhighlight %}
+```
 
 #### Searching Multiple Indexes Example
 
@@ -505,7 +505,7 @@ not strictly necessary.
 
 _AddressAndTeapotSearcher.java:_
 
-{% highlight java %}
+```java
 /**
  * Searches Addresses and Teapots.
  */
@@ -529,4 +529,4 @@ public class AddressAndTeapotSearcher extends AbstractMultiSearcher implements S
         return doSearch( query );
     }
 }
-{% endhighlight %}
+```

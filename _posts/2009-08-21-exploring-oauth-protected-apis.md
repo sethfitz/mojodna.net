@@ -22,13 +22,13 @@ to requests.
 
 There are 2 steps to using it.  First, install it:
 
-{% highlight bash %}
+```bash
 $ easy_install oauth-proxy
-{% endhighlight %}
+```
 
 Then, start it:
 
-{% highlight bash %}
+```bash
 $ oauth-proxy \
     --consumer-key <consumer key> \
     --consumer-secret <consumer secret> \
@@ -36,7 +36,7 @@ $ oauth-proxy \
     [--token-secret <token secret>] \
     [-p <proxy port>] \
     [--ssl]
-{% endhighlight %}
+```
 
 If you're accessing a resource that only requires 2-legged OAuth, you can omit
 `--token` and `--token-secret`. The proxy port defaults to `8001`, and `--ssl`
@@ -45,17 +45,17 @@ Eagle, for example).
 
 Once it's been started, use `curl` to make requests through it:
 
-{% highlight bash %}
+```bash
 $ curl -x localhost:8001 http://host.name/path
-{% endhighlight %}
+```
 
 You can also benchmark your APIs through it using ApacheBench (`ab`, as it
 includes support for HTTP proxies). Note that you are introducing additional
 overhead by proxying the request, so your numbers may be a bit off.
 
-{% highlight bash %}
+```bash
 $ ab -X localhost:8001 http://host.name/path
-{% endhighlight %}
+```
 
 Firefox (and browsers in general) supports HTTP proxies, so you can add a
 "Manual Proxy Configuration" and pass requests through `oauth-proxy` to
@@ -72,13 +72,13 @@ library for Ruby](http://github.com/mojodna/oauth) to obtain one.
 
 First, install the gem (0.3.5 is current as of this writing):
 
-{% highlight bash %}
+```bash
 $ sudo gem install oauth
-{% endhighlight %}
+```
 
 Then, trigger the authorization process from the command-line:
 
-{% highlight bash %}
+```bash
 $ oauth \
     --consumer-key <consumer key> \
     --consumer-secret <consumer secret> \
@@ -86,7 +86,7 @@ $ oauth \
     --authorize-url http://host.name/path/to/authorize \
     --request-token-url http://host.name/path/to/request_token \
     authorize
-{% endhighlight %}
+```
 
 Follow the prompts, and voilà, an access token and secret that you can use
 with `oauth-proxy`.
@@ -104,7 +104,7 @@ the authorization process.
 
 Let's authorize.
 
-{% highlight bash %}
+```bash
 $ oauth \
   --consumer-key <consumer key> \
   --consumer-secret <consumer secret> \
@@ -112,34 +112,34 @@ $ oauth \
   --authorize-url http://twitter.com/oauth/authorize \
   --request-token-url http://twitter.com/oauth/request_token \
   authorize
-{% endhighlight %}
+```
 
 After following the prompts, you'll get something back that looks like this:
 
-{% highlight yaml %}
+```yaml
 oauth_token_secret: [redacted]
 oauth_token: [redacted]
 user_id: [redacted]
 screen_name: [redacted]
-{% endhighlight %}
+```
 
 You can then use those values to start the OAuth proxy:
 
-{% highlight bash %}
+```bash
 $ oauth-proxy \
     --consumer-key <consumer key> \
     --consumer-secret <consumer secret> \
     --token <access token> \
     --token-secret <token secret>
-{% endhighlight %}
+```
 
 Now we're set.  Let's go exploring:
 
-{% highlight bash %}
+```bash
 $ curl -sx http://localhost:8001 \
     http://twitter.com/statuses/friends_timeline.json | \
     jsonpretty | pygmentize -l js
-{% endhighlight %}
+```
 
 You'll get exactly what you're expecting **and** you'll be using OAuth (this
 is a partially contrived example since Twitter still supports HTTP Base Auth).

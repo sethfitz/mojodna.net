@@ -20,7 +20,7 @@ The snippet below demonstrates how to deploy from a branch (to a QA or staging
 environment) or tag (releases to production should **always** have tags).
 Stick it in your `config/deploy.rb`.
 
-{% highlight ruby %}
+```ruby
 set :base_repository, "http://svn.mojodna.net/repository/#{application}"
 if variables[:tag]
   set :repository, "#{base_repository}/tags/#{variables[:tag]}"
@@ -29,18 +29,18 @@ elsif variables[:branch]
 else
   set :repository, "#{base_repository}/trunk"
 end
-{% endhighlight %}
+```
 
 With this modification in place, you can now deploy from a branch:
 
-{% highlight bash %}
+```bash
 $ RAILS_ENV=qa cap deploy -Sbranch=1.0
-{% endhighlight %}
+```
 
 Or from a tag:
 
-{% highlight bash %}
+```bash
 $ RAILS_ENV=production cap deploy -Stag=1.0.6
-{% endhighlight %}
+```
 
 Go forth and revel in your instability!

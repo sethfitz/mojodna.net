@@ -57,11 +57,11 @@ ReviewBoard](http://blog.mikepearce.net/2010/09/16/git-svn-and-reviewboard/).\]
 Add the following to your `~/.gitconfig` to enable `git svn-diff`. Awesome. It
 even looks like it belongs there. (`git-svn-diff` must be in your `PATH`.)
 
-{% highlight ini %}
+```ini
 # ~/.gitconfig
 [alias]
   svn-diff = !git-svn-diff
-{% endhighlight %}
+```
 
 <div class="caption">add <code>git svn-diff</code> as an alias for
 <code>git-svn-diff</code></div>
@@ -84,9 +84,9 @@ workflow](http://blog.hasmanythrough.com/2008/12/18/agile-git-and-the-story-bran
 
 Clone the target Subversion repository:
 
-{% highlight bash %}
+```bash
 $ git svn clone svn+ssh://svn.host/path/to/repo -s
-{% endhighlight %}
+```
 
 <div class="caption">assuming a standard Subversion layout</div>
 
@@ -98,34 +98,34 @@ retain Subversion metadata).
 
 Make sure you're up-to-date:
 
-{% highlight bash %}
+```bash
 [master] $ git svn rebase
-{% endhighlight %}
+```
 
 Create a topic branch (I include a title to recognize it more easily) and
 check it out:
 
-{% highlight bash %}
+```bash
 [master] $ git checkout -b bug-42-title
-{% endhighlight %}
+```
 
 Attempt a bug fix (write a test, make it pass):
 
-{% highlight bash %}
+```bash
 [bug-42-title] $ ...
-{% endhighlight %}
+```
 
 Check it in:
 
-{% highlight bash %}
+```bash
 [bug-42-title] $ git commit -a
-{% endhighlight %}
+```
 
 Generate a patch for review:
 
-{% highlight bash %}
+```bash
 [bug-42-title] $ git svn-diff > bug-42-title.patch
-{% endhighlight %}
+```
 
 <div class="caption">this will diff against the checked out trunk
 revision</div>
@@ -136,23 +136,23 @@ Post it for review.
 
 Update the tracking branch:
 
-{% highlight bash %}
+```bash
 [master] $ git svn rebase
-{% endhighlight %}
+```
 
 Rebase your topic branch against the current trunk:
 
-{% highlight bash %}
+```bash
 [master] $ git checkout bug-42-title
 [bug-42-title] $ git rebase master
 [bug-42-title] $ # resolve conflicts; `git mergetool` is handy
-{% endhighlight %}
+```
 
 Regenerate the patch:
 
-{% highlight bash %}
+```bash
 [bug-42-title] $ git svn-diff > bug-42-title-2.patch
-{% endhighlight %}
+```
 
 Post it for review.
 
@@ -160,21 +160,21 @@ Post it for review.
 
 Make changes to your topic branch:
 
-{% highlight bash %}
+```bash
 [bug-42-title] $ ...
-{% endhighlight %}
+```
 
 Check them in:
 
-{% highlight bash %}
+```bash
 [bug-42-title] $ git commit -a
-{% endhighlight %}
+```
 
 Regenerate the patch:
 
-{% highlight bash %}
+```bash
 [bug-42-title] $ git svn-diff > bug-42-title-3.patch
-{% endhighlight %}
+```
 
 Post it for review.
 
@@ -184,39 +184,39 @@ You have a few options here.
 
 You can apply the patch directly to the tracking branch:
 
-{% highlight bash %}
+```bash
 [master] $ git apply bug-42-title-3.patch
 [master] $ git commit -a
-{% endhighlight %}
+```
 
 If you want to preserve history (i.e. multiple commits that tell a story),
 update the tracking branch and rebase your topic branch against it before
 merging:
 
-{% highlight bash %}
+```bash
 [master] $ git svn rebase
 [master] $ git checkout bug-42-title
 [bug-42-title] $ git rebase master
 [bug-42-title] $ # resolve conflicts
 [bug-42-title] $ git checkout master
 [master] $ git merge bug-42-title
-{% endhighlight %}
+```
 
 If you want to get fancy (and remove your frustrated profanity), do an
 interactive rebase on the topic branch before merging:
 
-{% highlight bash %}
+```bash
 [bug-42-title] $ git rebase -i
 [bug-42-title] $ git checkout master
 [master] $ git merge bug-42-title
-{% endhighlight %}
+```
 
 Whew. Almost done. You'll want to update the upstream Subversion repository,
 lest you risk your hard work being wasted:
 
-{% highlight bash %}
+```bash
 [master] $ git svn dcommit
-{% endhighlight %}
+```
 
 <div class="caption">this will <code>git svn rebase</code> if necessary</div>
 
@@ -226,9 +226,9 @@ mail instead.
 Finally, once the patch has been merged, you can clean up your local
 repository by removing the topic branch:
 
-{% highlight bash %}
+```bash
 [master] $ git branch -d bug-42-title
-{% endhighlight %}
+```
 
 Topic branches needn't to be limited to your own bug-fixes. `git apply` is
 quite liberal in what it understands, so you can grab diffs (from ReviewBoard,
@@ -254,20 +254,20 @@ strictly **do** tags).
 
 `git branch` will list local branches:
 
-{% highlight bash %}
+```bash
 [master] $ git branch
   bug-42-title
 * master
-{% endhighlight %}
+```
 
 `git branch -r` will list Subversion branches (and tags):
 
-{% highlight bash %}
+```bash
 [master] $ git branch -r
   stable-1.0
   tags/REL_1.0
   trunk
-{% endhighlight %}
+```
 
 By default, your local `master` branch will be set up to track the remote
 `trunk` branch. Instead of using `git pull` (in a pure Git workflow) to update
@@ -285,10 +285,10 @@ In case you didn't fully grok that last paragraph, where you would have used
 `git svn rebase` without branches, you should do the following (rebasing still
 works, but your branches won't be up-to-date):
 
-{% highlight bash %}
+```bash
 [master] $ git svn fetch
 [master] $ git svn rebase
-{% endhighlight %}
+```
 
 `git svn rebase` in this case is the equivalent to `git rebase trunk`, as
 `trunk` is the "SVN parent of the current HEAD" (from `git help svn`).
@@ -301,7 +301,7 @@ tracking, usually using `git branch --track <local> <remote>`.
 Subversion branches and "tags" can also be created with `git-svn`. For
 example, to tag and branch a 1.1 release:
 
-{% highlight bash %}
+```bash
 [master] $ git svn branch -m "branching for 1.1" stable-1.1
 [master] $ git svn branch -m "1.1 release" -t REL_1.1
 [master] $ git branch -r
@@ -310,7 +310,7 @@ example, to tag and branch a 1.1 release:
   tags/REL_1.0
   tags/REL_1.1
   trunk
-{% endhighlight %}
+```
 
 Commit messages are necessary, as branching in Subversion is the equivalent to
 creating a changeset where a directory is copied.
@@ -318,17 +318,17 @@ creating a changeset where a directory is copied.
 Now that the branch has been created upstream, create a local tracking branch
 such that `git svn dcommit` will commit to the correct upstream branch.
 
-{% highlight bash %}
+```bash
 [master] $ git branch --track stable-1.1 stable-1.1
 [master] $ git checkout stable-1.1
 [stable-1.1] $
-{% endhighlight %}
+```
 
 #### Extra Credit
 
 Convert Subversion "tags" into proper Git tags:
 
-{% highlight bash %}
+```bash
 #!/bin/sh
 #
 # git-svn-convert-tags
@@ -336,13 +336,13 @@ Convert Subversion "tags" into proper Git tags:
 for tag in `git branch -r | grep "  tags/" | sed 's/  tags\///'`; do
   git tag $tag refs/remotes/tags/$tag
 done
-{% endhighlight %}
+```
 
 Add the following to your `~/.gitconfig` to enable `git svn-convert-tags`.
 (`git-svn-convert-tags` must be in your `PATH`.)
 
-{% highlight ini %}
+```ini
 # ~/.gitconfig
 [alias]
   svn-convert-tags = !git-svn-convert-tags
-{% endhighlight %}
+```

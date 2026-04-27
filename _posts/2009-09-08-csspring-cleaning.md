@@ -21,17 +21,17 @@ Time for some hacking.
 [My fork](http://github.com/mojodna/deadweight) can be installed with
 RubyGems (`0.0.5` is required for _deflate_ and _gzip_ content-encodings):
 
-{% highlight bash %}
+```bash
 $ sudo gem install mojodna-deadweight -s http://gems.github.com/
-{% endhighlight %}
+```
 
 The first step was to make it accessible as a command-line utility (ideally in
 the spirit of the [UNIX
 Philosophy](http://en.wikipedia.org/wiki/Unix_philosophy)).
 
-{% highlight bash %}
+```bash
 $ deadweight -s styles.css -s ie.css index.html about.html
-{% endhighlight %}
+```
 
 (This will check `styles.css` and `ie.css` against `index.html` and
 `about.html`, outputting unused rules.)
@@ -40,9 +40,9 @@ It also supports input from pipes, meaning that you can chain it together and
 filter orphaned rules without writing them to a file (you'll have to configure
 logging in order to limit output).
 
-{% highlight bash %}
+```bash
 $ cat styles.css | deadweight index.html
-{% endhighlight %}
+```
 
 Deadweight now contains an experimental `-L` argument that causes it to use
 [Lyndon](http://github.com/defunkt/lyndon) if the `lyndon` executable is in
@@ -55,9 +55,9 @@ The next step was to expose it as an HTTP proxy. It uses `8002` by default for
 no particular reason.
 ([oauth-proxy](/2009/08/21/exploring-oauth-protected-apis.html) uses `8001`.)
 
-{% highlight bash %}
+```bash
 $ deadweight -l deadweight.log -s styles.css -w http://github.com/ -P
-{% endhighlight %}
+```
 
 (This dumps log output to `deadweight.log` in `$PWD` and matches
 `http://github.com/*` against `styles.css`.)

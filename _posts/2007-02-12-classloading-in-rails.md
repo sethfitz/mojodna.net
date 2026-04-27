@@ -23,12 +23,12 @@ instances of subclasses, again because the subclasses had not been loaded (and
 the intermediate subclass was unable to provide a complete list of its
 subclasses).
 
-{% highlight ruby %}
+```ruby
 # load all models explicitly
 Dir.glob(File.join(RAILS_ROOT,"app","models","*.rb")).each do |rbfile|
   require rbfile
 end
-{% endhighlight %}
+```
 
 There are a couple of problems with this approach. It doesn't guarantee that a
 model will only be loaded once--classes may have already been loaded through
@@ -37,7 +37,7 @@ a specific class. In both cases, the above code may cause classes to be loaded
 multiple times (which can cause bizarre behavior). It also doesn't handle
 namespaced models correctly.
 
-{% highlight ruby %}
+```ruby
 # force loading (but not reloading) of all models by saying their name
 # Adapted from PragDave's Annotate Models plugin.
 model_path = File.join(RAILS_ROOT, "app", "models")
@@ -45,7 +45,7 @@ Dir.glob(File.join(model_path,"**","*.rb")).each do |m|
   class_name = m.sub(model_path + File::SEPARATOR, '').sub(/\\.rb$/, '').camelize
   klass = class_name.split('::').inject(Object){ |klass,part| klass.const_get(part) } rescue nil
 end
-{% endhighlight %}
+```
 
 This approach is considerably better; it supports namespaced models and defers
 the actual classloading to Rails (note the lack of an explicit `require`),
@@ -72,7 +72,7 @@ Our rather hackish solution is to trigger a `before_filter` in
 `ApplicationController` when `cache_classes` is determined to be on (when
 `Dependencies.mechanism == :load`):
 
-{% highlight ruby %}
+```ruby
 before_filter do
   model_path = File.join(RAILS_ROOT, "app", "models")
   Dir.glob(File.join(model_path,"**","*.rb")).each do |m|
@@ -80,4 +80,4 @@ before_filter do
     klass = class_name.split('::').inject(Object){ |klass,part| klass.const_get(part) } rescue nil
   end
 end if Dependencies.mechanism == :load
-{% endhighlight %}
+```

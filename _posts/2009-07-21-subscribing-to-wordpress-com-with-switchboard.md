@@ -17,7 +17,7 @@ rundown of how to interact with Wordpress.com using Switchboard.
 First, let's get a basic idea of the identities and features that
 Wordpress.com advertises:
 
-{% highlight bash %}
+```bash
 $ switchboard disco --target pubsub.im.wordpress.com info
 => Switchboard started.
 Discovery Info for pubsub.im.wordpress.com
@@ -63,13 +63,13 @@ Features:
   http://jabber.org/protocol/pubsub#subscription-notifications
   http://jabber.org/protocol/pubsub#subscription-options
 Shutdown initiated.
-{% endhighlight %}
+```
 
 Lo, it supports PubSub! (But it doesn't support node discovery, so we can't
 get a list of available nodes.) Fortunately, Andy's post includes a couple.
 Let's subscribe:
 
-{% highlight bash %}
+```bash
 $ switchboard pubsub --server pubsub.im.wordpress.com \
     --node /blogs/andy.wordpress.com subscribe
 => Switchboard started.
@@ -88,12 +88,12 @@ $ switchboard pubsub --server pubsub.im.wordpress.com --node \
 => Switchboard started.
 Subscribe successful.
 Shutdown initiated.
-{% endhighlight %}
+```
 
 Switchboard claimed that that worked, but let's double-check and list our
 subscriptions:
 
-{% highlight bash %}
+```bash
 $ switchboard pubsub --server pubsub.im.wordpress.com subscriptions
 => Switchboard started.
 Subscriptions:
@@ -101,13 +101,13 @@ Subscriptions:
 4E039D2A2B691: me@jabber.org => /blogs/andy.wordpress.com/2009/07/16/real-time-wordpress-com-subscription (subscribed)
 4E039BC7E8A69: me@jabber.org => /blogs/andy.wordpress.com/comments (subscribed)
 Shutdown initiated.
-{% endhighlight %}
+```
 
 Actually, there was no need to subscribe to comments for "Real-time
 Wordpress.com subscription" because we're also subscribed to the comments
 feed. Let's unsubscribe and check our subscriptions again:
 
-{% highlight bash %}
+```bash
 $ switchboard pubsub --server pubsub.im.wordpress.com --node \
      /blogs/andy.wordpress.com/2009/07/16/real-time-wordpress-com-subscription \
     unsubscribe
@@ -121,19 +121,19 @@ Subscriptions:
 4E039BC19E028: me@jabber.org => /blogs/andy.wordpress.com (subscribed)
 4E039BC7E8A69: me@jabber.org => /blogs/andy.wordpress.com/comments (subscribed)
 Shutdown initiated.
-{% endhighlight %}
+```
 
 Ok, all good. Now let's hope Andy posts something or gets a comment on
 something so we can listen for it:
 
-{% highlight bash %}
+```bash
 $ switchboard pubsub --server pubsub.im.wordpress.com listen
 (sample post and comment <event /> stanzas to come)
-{% endhighlight %}
+```
 
 For bonus points, let's implement a `WordpressJack`:
 
-{% highlight ruby %}
+```ruby
 class WordpressJack
   def self.connect(switchboard, settings)
     switchboard.plug!(AutoAcceptJack, NotifyJack, PubSubJack)
@@ -155,11 +155,11 @@ class WordpressJack
     end
   end
 end
-{% endhighlight %}
+```
 
 And a quick-and-dirty consumer:
 
-{% highlight ruby %}
+```ruby
 #!/usr/bin/env ruby -rubygems
 
 require 'switchboard'
@@ -179,7 +179,7 @@ switchboard.on_new_comment do |comment|
 end
 
 switchboard.run!
-{% endhighlight %}
+```
 
 There are a number of improvements that can be made here (this is the "making
 blind assumptions about responses" version).  Go wild.

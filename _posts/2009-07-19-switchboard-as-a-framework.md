@@ -15,7 +15,7 @@ components.
 This is the simplest client (bot) I could think of. It listens for input and
 replies with whatever was sent in the first place.
 
-{% highlight ruby %}
+```ruby
 #!/usr/bin/env ruby -rubygems
 
 require 'switchboard'
@@ -23,30 +23,30 @@ require 'switchboard'
 switchboard = Switchboard::Client.new
 switchboard.plug!(AutoAcceptJack, EchoJack, NotifyJack)
 switchboard.run!
-{% endhighlight %}
+```
 
 Let's break it down.
 
-{% highlight ruby %}
+```ruby
 #!/usr/bin/env ruby -rubygems
 
 require 'switchboard'
-{% endhighlight %}
+```
 
 Um, I hope this is pretty straightforward.
 
-{% highlight ruby %}
+```ruby
 switchboard = Switchboard::Client.new
-{% endhighlight %}
+```
 
 This instantiates `Switchboard::Client` with some default options, mainly
 `spin = true` (this is the 2nd argument). `spin` means that `#run!` will cause
 the process to run in a loop and not return immediately. `^C` will interrupt
 the process and shut it down cleanly. (`^C` a second time if it hangs.)
 
-{% highlight ruby %}
+```ruby
 switchboard.plug!(AutoAcceptJack, EchoJack, NotifyJack)
-{% endhighlight %}
+```
 
 This is the meat of it, even though it doesn't look like it at first glance.
 *Jack*s are the basic units of shared functionality. More later, but the basic
@@ -57,7 +57,7 @@ to everyone (and everything) in your roster.
 
 `EchoJack` (`lib/switchboard/jacks/echo.rb`) looks like this:
 
-{% highlight ruby %}
+```ruby
 class EchoJack
   def self.connect(switchboard, settings)
     switchboard.on_message do |message|
@@ -65,7 +65,7 @@ class EchoJack
     end
   end
 end
-{% endhighlight %}
+```
 
 I'll get to the details of `self.connect` shortly, but the gist of it is that
 the `EchoJack` registers an `on_message` callback and uses `Jabber::Message`'s
@@ -77,20 +77,20 @@ Implementing the `EchoBot` as a jack is perhaps overkill, but the goal was to
 demonstrate how short and modular Switchboard apps can be. The alternate
 implementation looks like this:
 
-{% highlight ruby %}
+```ruby
 switchboard.plug!(AutoAcceptJack, NotifyJack)
 switchboard.on_message do |message|
   stream.send(message.answer)
 end
-{% endhighlight %}
+```
 
 Callbacks are executed in the context of the `switchboard` object; this is
 important to remember, as variables defined in a different scope will be
 unavailable.
 
-{% highlight ruby %}
+```ruby
 switchboard.run!
-{% endhighlight %}
+```
 
 This kicks off the process of connecting to the server. As XMPP is an
 asynchronous protocol, the different hooks will be called in response to
@@ -104,7 +104,7 @@ methods implemented by `Switchboard::Core` and its subclasses rather than the
 jack itself. If you need convenience methods, they should be defined on the
 `switchboard` object provided as the 1st argument to `connect`:
 
-{% highlight ruby %}
+```ruby
 def self.connect(switchboard, settings)
   def switchboard.helper_method
     # do something
@@ -114,7 +114,7 @@ def self.connect(switchboard, settings)
     helper_method
   end
 end
-{% endhighlight %}
+```
 
 `connect` is the entry point for all jacks. When the jack is plugged into
 switchboard (using `Switchboard::Core#plug!`), `connect` is called with the
@@ -126,7 +126,7 @@ be doing is adding additional functionality (via method definitions or
 `PubSubJack` (`lib/switchboard/jacks/pubsub.rb`) modifies the `switchboard`
 object by extending a helper *Module*:
 
-{% highlight ruby %}
+```ruby
 def self.connect(switchoard, settings)
   switchboard.extend(Switchboard::Helpers::PubSubHelper)
   
@@ -134,7 +134,7 @@ def self.connect(switchoard, settings)
     # ...
   end
 end
-{% endhighlight %}
+```
 
 Like everything else, jacks have access to all hooks (lifecycle callbacks).
 These are called using `on_<hook name>`. In general, these map to callbacks
@@ -203,7 +203,7 @@ This represents a more complex example for several reasons. Firstly, it
 coexists with [EventMachine](http://rubyeventmachine.com/) as a set of
 additional threads (EventMachine is evented and thus single-threaded):
 
-{% highlight ruby %}
+```ruby
 EM.run do
   Thread.new do
     # Bamboo::Shooter subclasses Switchboard::Component
@@ -213,7 +213,7 @@ EM.run do
   
   # ...
 end
-{% endhighlight %}
+```
 
 Secondly, it implements a [PubSub](http://xmpp.org/extensions/xep-0060.html)
 service as a [component](http://xmpp.org/extensions/xep-0225.html), so it
@@ -229,7 +229,7 @@ but much of the implementation is essentially boilerplate.
 abstracting this, but it's incomplete at the moment. `<subscribe />` and
 `<unsubscribe />` requests are the only operations currently supported; the fallback is to return a `<feature-not-implemented />` response:
 
-{% highlight ruby %}
+```ruby
 def iq_handler(iq)
   if iq.pubsub
     if subscribe = iq.pubsub.first_element("subscribe")
@@ -273,7 +273,7 @@ def iq_handler(iq)
     not_implemented(iq)
   end
 end
-{% endhighlight %}
+```
 
 This is tightly tied to `xmpp4r` and REXML, but as the rest of Switchboard is
 too, it's not a big deal for the time being.
@@ -293,7 +293,7 @@ run once per minute per panda) is parsed using REXML (because Switchboard is
 already using it via `xmpp4r`), split up, and scheduled for publishing using
 `EventMachine.add_timer`:
 
-{% highlight ruby %}
+```ruby
 EM.run do
   # ...
 
@@ -335,14 +335,14 @@ EM.run do
   EventMachine::add_periodic_timer(61, &check_pandas)
   check_pandas.call
 end
-{% endhighlight %}
+```
 
 Consuming the Bamboo Shooter feed can either be done by running `switchboard
 pubsub --server <server> listen` or with code like this (`earth.rb`, which
 will zoom Google Earth to the location where the photo was taken). Remember,
 Wang Wang is the Panda who likes maps.
 
-{% highlight ruby %}
+```ruby
 #!/usr/bin/env ruby -rubygems
 
 begin
@@ -396,11 +396,11 @@ switchboard.on_pubsub_event do |event|
 end
 
 switchboard.run!
-{% endhighlight %}
+```
 
 Publishing is managed by the Switchboard component:
 
-{% highlight ruby %}
+```ruby
 def publish(node, xml_node)
   event = Jabber::PubSub::Event.new
   items = Jabber::PubSub::EventItems.new
@@ -415,7 +415,7 @@ def publish(node, xml_node)
     message(subscriber, event)
   end
 end
-{% endhighlight %}
+```
 
 Getting Bamboo Shooter running is a little tricky, as it requires an XMPP that
 supports the component protocol (I use [ejabberd](http://ejabberd.im/) with
@@ -428,7 +428,7 @@ in OS X. `bamboo-shooter.rb` connects to Ubuntu, the client connects to OS X,
 and the ejabberd instances figure out how to connect to one another with
 ZeroConf (`hostname.local`; `avahi-daemon` on Ubuntu makes this possible).
 
-{% highlight ruby %}
+```ruby
 {loglevel, 4}.
 {hosts, ["localhost"]}.
 {listen, [
@@ -443,7 +443,7 @@ ZeroConf (`hostname.local`; `avahi-daemon` on Ubuntu makes this possible).
 {language, "en"}.
 {modules, [
  ]}.
-{% endhighlight %}
+```
 
 ### That's it for now
 

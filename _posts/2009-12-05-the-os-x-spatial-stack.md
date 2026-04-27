@@ -29,7 +29,7 @@ under VMware Fusion. These instructions were condensed from
 http://blog.rectalogic.com/2008/08/virtualizing-mac-os-x-leopard-client.html
 and were sufficient to get a running Snow Leopard VM under Fusion 2.0.5.
 
-{% highlight bash %}
+```bash
 # cd /Library/Application\ Support/VMware\ Fusion/isoimages/
 # mkdir original
 # mv darwin.iso tools-key.pub *.sig  original/
@@ -44,7 +44,7 @@ and were sufficient to get a running Snow Leopard VM under Fusion 2.0.5.
 writing RSA key
 
 # for A in *.iso ; do openssl dgst -sha1 -sign tools-priv.pem < $A > $A.sig ; done
-{% endhighlight %}
+```
 
 Unfortunately, upgrading to 10.6.2 consistently causes the VM to crash during
 boot. I was hopeful that Fusion 3 would address this problem (since it claims
@@ -75,20 +75,20 @@ Part of the homebrew philosophy is:
 
 Homebrew is typically installed in `/usr/local`, so:
 
-{% highlight bash %}
+```bash
 $ sudo mkdir -p /usr/local
 $ sudo chown -R `whoami` /usr/local
-{% endhighlight %}
+```
 
 (If you already had MySQL installed in `/usr/local`, fix it: `sudo chown -R
 mysql:mysql /usr/local/mysql`.)
 
 Now, install homebrew:
 
-{% highlight bash %}
+```bash
 $ cd /usr/local
 $ curl -L http://github.com/mxcl/homebrew/tarball/master | tar xz --strip 1 -C .
-{% endhighlight %}
+```
 
 ## Homebrew-provided Libraries
 
@@ -98,9 +98,9 @@ need later.
 [`pkg-config`](http://pkg-config.freedesktop.org/) is necessary to cleanly
 compile PIL:
 
-{% highlight bash %}
+```bash
 $ brew install pkg-config
-{% endhighlight %}
+```
 
 You'll want to make sure that `/usr/local/bin` is in your `$PATH` so that
 `homebrew`-installed binaries will get run.
@@ -148,20 +148,20 @@ and run both the _Mapnik Framework_ and _Mapnik Python 2.6 System_ installers.
 If you'd previously installed Mapnik from source, you should remove it from
 your system before running the installer:
 
-{% highlight bash %}
+```bash
 $ rm -rf /Library/Python/2.6/site-packages/mapnik
 $ rm -rf /usr/local/lib/mapnik
 $ rm /usr/local/lib/libmapnik.dylib
-{% endhighlight %}
+```
 
 
 You can also remove `boost` and `icu` with `homebrew` if nothing else is using
 them:
 
-{% highlight bash %}
+```bash
 $ brew uninstall boost
 $ brew uninstall icu
-{% endhighlight %}
+```
 
 ## Quantumnik
 
@@ -192,7 +192,7 @@ We'll start with the easy stuff and `easy_install` the following:
   sorts of problems
 * [TileCache](http://tilecache.org/) - WMS-C compliant tile server
 
-{% highlight bash %}
+```bash
 $ easy_install Flickr.API
 $ easy_install ipython
 $ easy_install nik2img
@@ -201,24 +201,24 @@ $ easy_install nose
 $ easy_install numscons
 $ easy_install readline
 $ easy_install TileCache
-{% endhighlight %}
+```
 
 ### PIL
 
 [PIL](http://www.pythonware.com/products/pil/) is the Python Imaging Library.
 Download the current source kit and extract it to `/usr/local/src`:
 
-{% highlight bash %}
+```bash
 $ cd /usr/local/src
 $ tar zxf ~/Downloads/Imaging-1.1.6.tar.gz
 $ cd Imaging-1.1.6/
-{% endhighlight %}
+```
 
 Since you previously installed `pkg-config`, building it is straightforward:
 
-{% highlight bash %}
+```bash
 $ python setup.py install
-{% endhighlight %}
+```
 
 ### matplotlib
 
@@ -228,17 +228,17 @@ Python. It can be used both programmatically and interactively.
 Download the source distribution from SourceForge and extract it to
 `/usr/local/src`:
 
-{% highlight bash %}
+```bash
 $ cd /usr/local/src
 $ tar zxf ~/Downloads/matplotlib-0.99.1.2.tar.gz
 $ cd matplotlib-0.99.1.1/ # why yes, this is a mistake in the pkg
-{% endhighlight %}
+```
 
 Again, this is straightforward:
 
-{% highlight bash %}
+```bash
 $ python setup.py install
-{% endhighlight %}
+```
 
 matplotlib includes the [Basemap
 Toolkit](http://matplotlib.sourceforge.net/basemap/doc/html/), which makes it
@@ -249,25 +249,25 @@ Download the source distribution from
 and extract it to `/usr/local/src`. While you're at it, download `natgrid` from
 the same place.
 
-{% highlight bash %}
+```bash
 $ cd /usr/local/src
 $ tar zxf ~/Downloads/basemap-0.99.4.tar.gz
 $ tar zxf ~/Downloads/natgrid-0.1.tar.gz
-{% endhighlight %}
+```
 
 Basemap needs to know where GEOS was installed:
 
-{% highlight bash %}
+```bash
 $ cd basemap-0.99.4/
 $ GEOS_DIR=/Library/Frameworks/GEOS.framework/unix python setup.py install
-{% endhighlight %}
+```
 
 `natgrid` is straightforward:
 
-{% highlight bash %}
+```bash
 $ cd natgrid-0.1/
 $ python setup.py install
-{% endhighlight %}
+```
 
 ### numpy / scipy
 
@@ -284,27 +284,27 @@ SourceForge([numpy](http://sourceforge.net/projects/numpy/files/),
 [scipy](http://sourceforge.net/projects/scipy/files/)) and extract them to
 `/usr/local/src`:
 
-{% highlight bash %}
+```bash
 $ cd /usr/local/src
 $ tar zxf ~/Downloads/numpy-1.3.0.tar.gz
 $ tar zxf ~/Downloads/scipy-0.7.1.tar.gz
-{% endhighlight %}
+```
 
 Build and install numpy:
 
-{% highlight bash %}
+```bash
 $ cd numpy-1.3.0/
 $ LDFLAGS="-lgfortran -arch x86_64" FFLAGS="-arch x86_64" \
     python setup.py install
-{% endhighlight %}
+```
 
 Build and install scipy:
 
-{% highlight bash %}
+```bash
 $ cd scipy-0.7.1/
 $ LDFLAGS="-lgfortran -arch x86_64" FFLAGS="-arch x86_64" \
     python setup.py install
-{% endhighlight %}
+```
 
 Note: the GDAL installer from KyngChaos bundles a version of numpy in
 `/Library/Frameworks/GDAL.framework/Versions/1.6/Python/site-packages/numpy/`,
@@ -326,17 +326,17 @@ manually).
 
 First, check out Cascadenik from Google Code:
 
-{% highlight bash %}
+```bash
 $ cd /usr/local/src
 $ svn co http://mapnik-utils.googlecode.com/svn/trunk/serverside/cascadenik
-{% endhighlight %}
+```
 
 Next, build and install it:
 
-{% highlight bash %}
+```bash
 $ cd cascadenik
 $ python setup.py install
-{% endhighlight %}
+```
 
 It will automatically download and install `cssutils` for you before making
 `cascadenik-compile.py` and `cascadenik-style.py` available in your `$PATH`.
@@ -350,7 +350,7 @@ When working with data from [OpenStreetMap](http://openstreetmap.org/),
 To install `osm2pgsql`, check it out from OSM's subversion repository and use
 `make` to build and install it, linking against the KyngChaos framework:
 
-{% highlight bash %}
+```bash
 $ cd /usr/local/src
 $ svn co http://svn.openstreetmap.org/applications/utils/export/osm2pgsql/ 
 $ cd osm2pgsql
@@ -358,14 +358,14 @@ $ PATH=$PATH:/Library/Frameworks/GEOS.framework/unix/bin/ \
     CFLAGS="-I/Library/Frameworks/PROJ.framework/unix/include" \
     LDFLAGS="-L/Library/Frameworks/PROJ.framework/unix/lib/" \
     make
-{% endhighlight %}
+```
 
 You'll have to install it by hand to `/usr/local`:
 
-{% highlight bash %}
+```bash
 $ install -m 0755 osm2pgsql /usr/local/bin
 $ install default.style /usr/local/share/osm2pgsql
-{% endhighlight %}
+```
 
 `default.style` is the standard map of OSM tags to database columns; you'll
 need it when you run an import, even if the defaults are fine.
@@ -378,16 +378,16 @@ Osmosis](http://dev.openstreetmap.org/~bretth/osmosis-build/osmosis-latest.tar.g
 
 Extract it to `/usr/local`:
 
-{% highlight bash %}
+```bash
 $ cd /usr/local
 $ tar zxf ~/Downloads/osmosis-latest-bin.tar.gz
-{% endhighlight %}
+```
 
 Now, create a symlink to the binary:
 
-{% highlight bash %}
+```bash
 $ ln -s /usr/local/osmosis-0.36/bin/osmosis /usr/local/bin/osmosis
-{% endhighlight %}
+```
 
 ## PostgreSQL Additions
 
@@ -403,36 +403,36 @@ tarball corresponding to the version you already have
 installed](http://www.postgresql.org/ftp/source/v8.4.5/). Next, extract it to
 `/usr/local/src`:
 
-{% highlight bash %}
+```bash
 $ cd /usr/local/src
 $ tar zxf ~/Downloads/postgresql-8.4.5.tar.bz2
-{% endhighlight %}
+```
 
 Configure Postgres:
 
-{% highlight bash %}
+```bash
 $ cd postgres-8.4.5
 $ ./configure
-{% endhighlight %}
+```
 
 Change to the _intarray_ contrib directory and `make` it:
 
-{% highlight bash %}
+```bash
 $ cd contrib/intarray
 $ export PATH=/usr/local/pgsql/bin:$PATH
 $ export USE_PGXS=1
 $ make
 $ sudo make install
-{% endhighlight %}
+```
 
 (This same process can be repeated for other extensions that you desire.)
 
 With `intarray` now installed, you can enable the database of your choosing
 (`osm` in this case):
 
-{% highlight bash %}
+```bash
 $ sudo -u postgres psql -d osm -f /usr/local/pgsql/share/contrib/_int.sql
-{% endhighlight %}
+```
 
 ## GUI Utilities
 

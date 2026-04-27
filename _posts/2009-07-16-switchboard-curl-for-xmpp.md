@@ -14,7 +14,7 @@ title: "switchboard : XMPP :: curl : HTTP"
 
 Here's how to install and use Switchboard for a few basic use-cases:
 
-{% highlight bash %}
+```bash
 $ # install Switchboard
 $ sudo gem install switchboard
 
@@ -29,7 +29,7 @@ $ switchboard --jid client@example.com --password pa55word \
 $ # listen for PubSub events
 $ switchboard --jid subscriber@example.com --password pa55word \
     pubsub --server <pubsub server> listen
-{% endhighlight %}
+```
 
 ### "curl for XMPP?"
 
@@ -104,16 +104,16 @@ The first thing you'll probably want to do with Switchboard is to provide some
 basic configuration so you won't have to constantly enter your login
 credentials:
 
-{% highlight bash %}
+```bash
 $ switchboard config jid jid@example.com
 $ switchboard config password pa55word
-{% endhighlight %}
+```
 
 To get the value of a setting, don't include a value:
 
-{% highlight bash %}
+```bash
 $ switchboard config jid # => jid@example.com
-{% endhighlight %}
+```
 
 Some additional useful settings to set defaults for are:
 
@@ -149,12 +149,12 @@ command-line.
 Rosters can be listed, added to, or removed from. I'll assume you've
 configured Switchboard with some login credentials.
 
-{% highlight bash %}
+```bash
 $ switchboard roster list
 $ switchboard roster online
 $ switchboard roster add friend1@example.org friend2@example.org
 $ switchboard roster remove friend2@example.org enemy@example.org
-{% endhighlight %}
+```
 
 #### Probing and Discovery
 
@@ -162,24 +162,24 @@ XMPP provides some pretty heady functionality when it comes to determining
 what a server is capable of. A `disco#info` query is the first step to use
 when determining capabilities:
 
-{% highlight bash %}
+```bash
 $ switchboard disco --target jabber.org info
-{% endhighlight %}
+```
 
 The response to this query includes `http://jabber.org/protocol/disco#items`,
 which means that `jabber.org` supports `disco#items` queries, which allow you
 to determine what top-level items (services) are available:
 
-{% highlight bash %}
+```bash
 $ switchboard disco --target jabber.org items
-{% endhighlight %}
+```
 
 This response includes `conference.jabber.org`. Let's list items available
 there:
 
-{% highlight bash %}
+```bash
 $ switchboard disco --target conference.jabber.org items
-{% endhighlight %}
+```
 
 Whoa.  A list of *MUC*s (multi-user chats) hosted on `conference.jabber.org`.
 
@@ -195,33 +195,33 @@ Switchboard supports more of
 mainly because that's been my primary focus of XMPP experimentation. To get a
 full list of available PubSub commands:
 
-{% highlight bash %}
+```bash
 $ switchboard pubsub
-{% endhighlight %}
+```
 
 A basic sequence of events is to subscribe:
 
-{% highlight bash %}
+```bash
 $ switchboard pubsub --server <server> subscribe --node <node>
-{% endhighlight %}
+```
 
 List subscriptions:
 
-{% highlight bash %}
+```bash
 $ switchboard pubsub --server <server> subscriptions
-{% endhighlight %}
+```
 
 Listen for notifications:
 
-{% highlight bash %}
+```bash
 $ switchboard pubsub --server <server> listen
-{% endhighlight %}
+```
 
 Unsubscribe:
 
-{% highlight bash %}
+```bash
 $ switchboard pubsub --server <server> unsubscribe --node <node>
-{% endhighlight %}
+```
 
 Let's walk through a couple examples.
 
@@ -230,23 +230,23 @@ feed parsing in the cloud". To begin, you'll need to register and activate
 your account. Once you've done that, set up a subscription a
 [Twitter](http://twitter.com/) search for "xmpp":
 
-{% highlight bash %}
+```bash
 $ switchboard --jid <username>@superfeedr.com --password <password> \
     pubsub --server firehoser.superfeedr.com \
     subscribe --node "http://search.twitter.com/search.atom?q=xmpp"
-{% endhighlight %}
+```
 
 We would next list subscriptions, but Superfeedr uses a non-standard mechanism
 to do so. Instead, let's listen for new results:
 
-{% highlight bash %}
+```bash
 $ switchboard --jid <username>@superfeedr.com --password <password> \
     pubsub --server firehoser.superfeedr.com listen
-{% endhighlight %}
+```
 
 If you're lucky, you'll get an Atom payload or two. Here's one:
 
-{% highlight xml %}
+```xml
 <event xmlns='http://jabber.org/protocol/pubsub#event'>
   <status feed='http://search.twitter.com/search.atom?q=xmpp' xmlns='http://superfeedr.com/xmpp-pubsub-ext'>
     <http code='200'>16933 bytes fetched in 0.600034s</http>
@@ -273,7 +273,7 @@ If you're lucky, you'll get an Atom payload or two. Here's one:
     </item>
   </items>
 </event>
-{% endhighlight %}
+```
 
 It includes a Superfeedr-specific `<status/>` element with information on the
 most recent fetch as well as standard Atom feeds contained within standard
@@ -291,7 +291,7 @@ Let's start with a subscriptions list request, since we have the credentials
 ("General Purpose Access Token") immediately after registering a "web"
 application with [Fire Eagle](http://fireeagle.yahoo.net/).
 
-{% highlight bash %}
+```bash
 $ switchboard pubsub --oauth \
     --oauth-consumer-key <consumer key> \
     --oauth-consumer-secret <consumer secret> \
@@ -299,23 +299,23 @@ $ switchboard pubsub --oauth \
     --oauth-token-secret <general token secret> \
     --server fireeagle.com \
     subscriptions
-{% endhighlight %}
+```
 
 Odds are, you'll have nothing there. Let's change that. Send yourself through
 the authorization process in order to get a valid OAuth token and secret:
 
-{% highlight bash %}
+```bash
 $ oauth --consumer-key <consumer key> \
     --consumer-secret <consumer secret> \
     --access-token-url https://fireeagle.yahooapis.com/oauth/access_token
     --authorize-url https://fireeagle.yahoo.net/oauth/authorize
     --request-token-url https://fireeagle.yahooapis.com/oauth/request_token
     authorize
-{% endhighlight %}
+```
 
 With that token and secret, subscribe to your Location Stream:
 
-{% highlight bash %}
+```bash
 $ switchboard pubsub --oauth \
     --oauth-consumer-key <consumer key> \
     --oauth-consumer-secret <consumer secret> \
@@ -323,11 +323,11 @@ $ switchboard pubsub --oauth \
     --oauth-token-secret <token secret> \
     --server fireeagle.com \
     subscribe --node "/api/0.1/user/<token>"
-{% endhighlight %}
+```
 
 Now you'll have a subscription to query for:
 
-{% highlight bash %}
+```bash
 $ switchboard pubsub --oauth \
     --oauth-consumer-key <consumer key> \
     --oauth-consumer-secret <consumer secret> \
@@ -335,13 +335,13 @@ $ switchboard pubsub --oauth \
     --oauth-token-secret <general token secret> \
     --server fireeagle.com \
     subscriptions
-{% endhighlight %}
+```
 
 Listen for location updates:
 
-{% highlight bash %}
+```bash
 $ switchboard pubsub --server fireeagle.com listen
-{% endhighlight %}
+```
 
 [Update your current location](http://fireeagle.yahoo.net/my/location) and
 watch as the update rolls in. If you'd like to visualize updates with [Google
@@ -350,7 +350,7 @@ GitHub](http://github.com/mojodna/fire-hydrant/tree).
 
 We're done, so we may as well clean up and unsubscribe:
 
-{% highlight bash %}
+```bash
 $ switchboard pubsub --oauth \
     --oauth-consumer-key <consumer key> \
     --oauth-consumer-secret <consumer secret> \
@@ -358,7 +358,7 @@ $ switchboard pubsub --oauth \
     --oauth-token-secret <token secret> \
     --server fireeagle.com \
     unsubscribe --node "/api/0.1/user/<token>"
-{% endhighlight %}
+```
 
 #### PEP (Personal Eventing Protocol)
 
@@ -376,9 +376,9 @@ To publish User Tune, you need to be on a Mac, running iTunes, and have the
 `rb-appscript` gem installed (`sudo gem install rb-appscript`). Once that's
 done:
 
-{% highlight bash %}
+```bash
 $ switchboard --resource switchtunes pep tune
-{% endhighlight %}
+```
 
 To publish User Location, you need to be updating [Fire
 Eagle](http://fireeagle.yahoo.net/)
@@ -387,26 +387,26 @@ updater for OS X) and have the `fire-hydrant` gem installed from GitHub (`sudo
 gem install mojodna-fire-hydrant -s http://gems.github.com`). Once that's
 square:
 
-{% highlight bash %}
+```bash
 $ switchboard --resource switchfire pep location
-{% endhighlight %}
+```
 
 #### More
 
 Switchboard supports more functionality than I've described above. To get a list of general `switchboard` commands (some of which may have sub-commands):
 
-{% highlight bash %}
+```bash
 $ switchboard
-{% endhighlight %}
+```
 
 ### Getting Help
 
 In theory, if you want more information about a specific command, you can use
 `switchboard help <command>`. For example:
 
-{% highlight bash %}
+```bash
 $ switchboard help pubsub
-{% endhighlight %}
+```
 
 For now, you'll notice that it's not particularly useful. If you'd like to
 help rectify this, you can implement various `help` methods that are lying
@@ -423,7 +423,7 @@ I was on a panel with [Peter St. Andre](http://stpeter.im/) and [Jack Moffitt](h
 
 I took a whack at it and it came out like this:
 
-{% highlight ruby %}
+```ruby
 module Switchboard
   module Commands
     class Grep < Switchboard::Command
@@ -447,7 +447,7 @@ module Switchboard
     end
   end
 end
-{% endhighlight %}
+```
 
 *Jack*s (not Moffitt) deserve their own discussion, but the thrust of this
 piece of code is the `#on_stanza` callback (which yields a `REXML::Node`

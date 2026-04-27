@@ -91,7 +91,7 @@ this time._
 
 _src/java/net/mojodna/sprout/action/example/ExampleAction.java_:
 
-{% highlight java %}
+```java
 // URL should be /example/*
 package net.mojodna.sprout.action.example;
 
@@ -106,19 +106,19 @@ public class ExampleAction extends Sprout {
     return mapping.findForward( FWD_SUCCESS );
   }
 }
-{% endhighlight %}
+```
 
 _src/java/applicationContext.xml_:
 
-{% highlight xml %}
+```xml
 ...
 <bean name="ExampleAction" class="net.mojodna.sprout.action.example.ExampleAction" singleton="true" />
 ...
-{% endhighlight %}
+```
 
 _src/web/WEB-INF/struts-config.xml_:
 
-{% highlight xml %}
+```xml
 ...
 <form-bean name="ExampleActionForm" type="org.apache.struts.validator.DynaValidatorForm">
   <form-property name="..." type="..." />
@@ -134,7 +134,7 @@ _src/web/WEB-INF/struts-config.xml_:
 <!-- Sprout plug-in -->
 <plug-in className="net.mojodna.sprout.SproutAutoLoaderPlugIn" />
 ...
-{% endhighlight %}
+```
 
 ### Shorthand
 
@@ -150,7 +150,7 @@ _index()_ in your Sprout sub-class and add it there.
 
 Helper methods have been added to ease development using _DynaActionForms_.
 
-{% highlight java %}
+```java
 String key = "foo";
 String value = "bar";
 // returns a String
@@ -161,7 +161,7 @@ F( key ) == ((DynaActionForm) form).get( key );
 
 // sets a value
 s( key, value ) == ((DynaActionForm) form).set( key, value );
-{% endhighlight %}
+```
 
 ### ActionMessage handling
 
@@ -175,7 +175,7 @@ have been called or if the invocation occurs during a separate request.
 
 Sample message / error handling code (within an Action):
 
-{% highlight java %}
+```java
 ActionMessages msgs = getMessages( request );
 ActionMessages errors = getErrors( request );
 
@@ -188,7 +188,7 @@ errors.add( ... );
 // Save messages and errors
 saveMessages( request, msgs );
 saveErrors( request, errors );
-{% endhighlight %}
+```
 
 `<ui:notifications />` (_src/web/WEB-INF/tags/ui/notifications.tag_) is an
 alternative tag file that can be modified for your use. The primary difference

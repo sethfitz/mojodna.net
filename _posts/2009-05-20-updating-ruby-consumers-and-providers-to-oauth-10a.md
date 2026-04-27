@@ -17,25 +17,25 @@ In order for things to work properly, you'll need to use a version of the
 OAuth gem that's at least _0.3.4.1_ (0.3.5 was released on 6/3/09). To install
 it and check the version number:
 
-{% highlight bash %}
+```bash
 $ sudo gem install oauth
 $ oauth --version
-{% endhighlight %}
+```
 
 Authorization code that once looked like this:
  
-{% highlight ruby %}
+```ruby
 request_token = consumer.get_request_token
 puts "Please visit the following URL to authorize this application:"
 puts request_token.authorize_url(:oauth_callback => callback_url)
 # wait for input
 gets
 access_token = request_token.get_access_token
-{% endhighlight %}
+```
  
 Should now look like this:
 
-{% highlight ruby %}
+```ruby
 request_token = consumer.get_request_token(:oauth_callback => callback_url)
 puts "Please visit the following URL to authorize this application:"
 puts request_token.authorize_url
@@ -44,14 +44,14 @@ puts "What's the value of `oauth_verifier`?"
 oauth_verifier = gets.chomp
 # `oauth_verifier` is extracted from the expanded callback URL or was displayed to the user
 access_token = request_token.get_access_token(:oauth_verifier => oauth_verifier)
-{% endhighlight %}
+```
 
 You can detect whether a Service Provider supports 1.0a:
 
-{% highlight ruby %}
+```ruby
 request_token = consumer.get_request_token
 puts "OAuth 1.0a detected" if request_token.callback_confirmed?
-{% endhighlight %}
+```
 
 ### Updating Ruby OAuth Providers to 1.0a
 
@@ -67,7 +67,7 @@ whatever it's called): `callback` and `verifier`.
 
 The first step to supporting OAuth 1.0a is to accept `oauth_token` parameters when issuing Request Tokens.  To do this, you'll need to make the `OAuth::RequestProxy::ActionControllerRequest` available to methods that run later in a request's lifecycle:
 
-{% highlight ruby %}
+```ruby
 def verify_oauth_signature
   valid = OAuth::Signature.verify(request) do |request_proxy|
     # make the request proxy available outside this block
@@ -81,11 +81,11 @@ end
 def oauth_request_proxy
   @_request_proxy
 end
-{% endhighlight %}
+```
 
 Once this is set up, you'll need to modify your `request_token` method to associate the `oauth_callback` parameter with your Request token and set `oauth_callback_confirmed` to _true_:
 
-{% highlight ruby %}
+```ruby
 def request_token
   request_token = new_request_token
    # request_proxy provides unified interface to params + headers
@@ -96,7 +96,7 @@ def request_token
                   "oauth_token_secret=#{request_token.secret}&" \
                   "oauth_callback_confirmed=true"
 end
-{% endhighlight %}
+```
 
 #### Generating An `oauth_verifier` During the Authorization Phase
 
@@ -105,7 +105,7 @@ you'll want to generate an `oauth_verifier` value and return it to the
 application via the pre-registered callback url (or display it to the user and
 instruct them to enter it into their application).
 
-{% highlight ruby %}
+```ruby
 def authorize
   # display the authorization page
   
@@ -127,14 +127,14 @@ def authorize
     render # display the verification code to the user
   end
 end
-{% endhighlight %}
+```
 
 #### Verifying Access Token Exchanges
 
 When exchanging a Request Token for an Access Token, you need to confirm that
 the verification code provided by the consumer matches the one on file.
 
-{% highlight ruby %}
+```ruby
 def access_token
   # this is a correctly signed request: oauth_token has already been loaded
 
@@ -148,7 +148,7 @@ def access_token
     raise OAuth::InvalidVerifier
   end
 end
-{% endhighlight %}
+```
 
 ### Summary
 
