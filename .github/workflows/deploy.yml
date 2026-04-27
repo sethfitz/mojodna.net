@@ -2,7 +2,7 @@ name: Build and deploy
 
 on:
   push:
-    branches: [gh-pages, main]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
