@@ -1,33 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta name="verify-v1" content="6N/bUg3M98Fk2d7C9UwngL85hbufNcWxv8at41EHPdE=" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GeoWeb 2010 :: Drive-by Digressions</title>
-<meta name="author" content="Seth Fitzsimmons" />
-<link href="http://feeds2.feedburner.com/mojodnadotnet" rel="alternate" title="Drive-by Digressions" type="application/atom+xml" />
-
-<!-- Homepage CSS -->
-<link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
-
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-66841-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script');
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
-        'http://www') + '.google-analytics.com/ga.js';
-    ga.setAttribute('async', 'true');
-    document.documentElement.firstChild.appendChild(ga);
-  })();
-</script>
-
-<script type="text/javascript" src="http://use.typekit.com/tyk8zag.js"></script>
-<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<meta name="author" content="Seth Fitzsimmons">
+<link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Drive-by Digressions">
+<link rel="stylesheet" href="/css/screen.css">
 </head>
 <body>
 
@@ -41,7 +20,7 @@ reference to a number of pieces of technology where it may not have been
 obvious where to look for more information. This should help that.</p>
 
 <p>The presentation itself is here: <a
-href="http://github.com/downloads/mojodna/mojodna.github.com/Building%20Blocks%20of%20Real-Time%20Distribution.pdf">Building
+href="https://github.com/downloads/mojodna/mojodna.github.com/Building%20Blocks%20of%20Real-Time%20Distribution.pdf">Building
 Blocks of Real-Time Distribution</a> (PDF)</p>
  
 <h2>Buzzwords</h2>
@@ -51,7 +30,7 @@ Blocks of Real-Time Distribution</a> (PDF)</p>
     versed in traditional GIS to help manage data with associated location
     information.</dd>
 
-    <dt><a href="http://flickr.com/">Flickr</a></dt>
+    <dt><a href="https://flickr.com/">Flickr</a></dt>
     <dd>The venerable photo sharing site where I used to work.</dd>
 
     <dt><a href="http://fireeagle.yahoo.net/">Fire Eagle</a></dt>
@@ -61,11 +40,11 @@ Blocks of Real-Time Distribution</a> (PDF)</p>
     Streams</a> (XMPP PubSub) and helped specify OAuth-over-XMPP while serving
     as the development lead.</dd>
 
-    <dt><a href="http://nextbus.com/">NextBus</a></dt>
+    <dt><a href="https://nextbus.com/">NextBus</a></dt>
     <dd>Provider of real-time transit information in partnership with local
     transit agencies.</dd>
 
-    <dt><a href="http://foursquare.com/">Foursquare</a></dt>
+    <dt><a href="https://foursquare.com/">Foursquare</a></dt>
     <dd>Location-based mobile social networking game that allows people to
     "check in" to venues (bars, restaurants, parks, etc.), share information
     about them, and compete for status.</dd>
@@ -73,22 +52,22 @@ Blocks of Real-Time Distribution</a> (PDF)</p>
     <dt><a href="http://gowalla.com/">Gowalla</a></dt>
     <dd>Similar to Foursquare.</dd>
 
-    <dt><a href="http://xmpp.org/">XMPP</a></dt>
+    <dt><a href="https://xmpp.org/">XMPP</a></dt>
     <dd>An instant messaging protocol designed for machines. Also known as
     Jabber; this is what Google Talk uses. Well-specified for many uses, but
     overwhelming. Its ability to track presence is one of its strongest
     features.</dd>
 
-    <dt><a href="http://tools.ietf.org/html/rfc4287">Atom</a></dt>
+    <dt><a href="https://tools.ietf.org/html/rfc4287">Atom</a></dt>
     <dd>IETF-defined XML syndication format with support for namespaces, etc.
     Successor to RSS.</dd>
 
-    <dt><a href="http://json.org/">JSON</a></dt>
+    <dt><a href="https://json.org/">JSON</a></dt>
     <dd>JavaScript-inspired, ultra-simplistic data format with parsers and
     serializers in most languages. Frequently used in web applications due to
     its tight relationship with JavaScript.</dd>
 
-    <dt><a href="http://en.wikipedia.org/wiki/Geography_Markup_Language">GML</a></dt>
+    <dt><a href="https://en.wikipedia.org/wiki/Geography_Markup_Language">GML</a></dt>
     <dd>The Geography Markup Language. XML-based and exceedingly thorough; many
     uses of GML refer only to a constrained subset.</dd>
 
@@ -101,7 +80,7 @@ Blocks of Real-Time Distribution</a> (PDF)</p>
     Features, originally intended for use with RSS, but will work with any
     XML-based format.</dd>
 
-    <dt><a href="http://geojson.org/">GeoJSON</a></dt>
+    <dt><a href="https://geojson.org/">GeoJSON</a></dt>
     <dd>JSON equivalent of GeoRSS; even more simplistic (due to lack of support
     for namespaces), yet still sufficient for representation of Simple
     Features.</dd>
@@ -110,7 +89,7 @@ Blocks of Real-Time Distribution</a> (PDF)</p>
     <dd>Publish Atom content over HTTP; connections remain open as long as
     possible. Twitter and LiveJournal do this.</dd>
 
-    <dt><a href="http://xmpp.org/extensions/xep-0060.html">XMPP PubSub</a></dt>
+    <dt><a href="https://xmpp.org/extensions/xep-0060.html">XMPP PubSub</a></dt>
     <dd>Publish Atom (or other) content over XMPP using a publish-subscribe
     model. “Nodes” can be published and subscribed to at will. Fire Eagle does
     this (by the name of “Location Streams.”) SuperFeedr supports both
@@ -124,7 +103,7 @@ Blocks of Real-Time Distribution</a> (PDF)</p>
     <dt><a href="http://code.google.com/p/pubsubhubbub/">PubSubHubbub</a></dt>
     <dd>Further clarification and definition of Web Hooks, including support
     for deletion. Most Google services support this in some fashion. <a
-    href="http://superfeedr.com/">SuperFeedr</a> acts as a hub and will
+    href="https://superfeedr.com/">SuperFeedr</a> acts as a hub and will
     transform between different formats and protocols (XMPP).</dd>
     
     <dt>Flash Sockets</dt>
@@ -132,17 +111,17 @@ Blocks of Real-Time Distribution</a> (PDF)</p>
     browser. Can be used to implement clients for multiple client-initiated
     protocols.</dd>
 
-    <dt><a href="http://en.wikipedia.org/wiki/WebSockets">Web Sockets</a></dt>
+    <dt><a href="https://en.wikipedia.org/wiki/WebSockets">Web Sockets</a></dt>
     <dd>Native socket connections for web browsers. Defined as part of HTML5
     and only available in modern browsers (Firefox, Chrome, Safari).</dd>
     
-    <dt><a href="http://nginx.org/en/">Nginx</a></dt>
+    <dt><a href="https://nginx.org/en/">Nginx</a></dt>
     <dd>If you need a web server that will handle highly concurrent
     long-lasting connections, Apache and IIS won’t cut it, as they have lower
     limits on the number of clients connections they can hold open at one time.
     Nginx tends to be faster in these circumstances.</dd>
 
-    <dt><a href="http://nodejs.org/">Node.js</a></dt>
+    <dt><a href="https://nodejs.org/">Node.js</a></dt>
     <dd>An up-and-coming event-based runtime for JavaScript that I’m pretty
     excited about, based on Google’s V8 virtual machine (which powers Chrome).
     Writing asynchronous network services is more straightforward than in other
@@ -152,33 +131,33 @@ Blocks of Real-Time Distribution</a> (PDF)</p>
     <dd>A lightweight HTTP server for Java, suitable for long-lasting
     connections.</dd>
 
-    <dt><a href="http://twistedmatrix.com/trac/">Twisted</a></dt>
+    <dt><a href="https://twistedmatrix.com/trac/">Twisted</a></dt>
     <dd>An event-driven network framework for Python. It’s almost a world unto
     itself, which ups the learning curve, although performance is quite
     good.</dd>
 
-    <dt><a href="http://www.ejabberd.im/">ejabberd</a></dt>
+    <dt><a href="https://www.ejabberd.im/">ejabberd</a></dt>
     <dd>Effectively the reference implementation for XMPP. Custom modules can
     be built to support additional functionality, but they must be written in
     Erlang.</dd>
 
-    <dt><a href=http://prosody.im/>Prosody</a></dt>
+    <dt><a href="https://prosody.im/">Prosody</a></dt>
     <dd>For our purposes, Prosody’s main differentiator is that it’s written in
-    <a href="http://www.lua.org/">Lua</a>, a lightweight scripting language
+    <a href="https://www.lua.org/">Lua</a>, a lightweight scripting language
     often used in video games. This means that it can be extended fairly easily
     to implement application-specific functionality.</dd>
 
-    <dt><a href="http://xmpp.org/extensions/xep-0225.html">XMPP Component Protocol</a></dt> 
+    <dt><a href="https://xmpp.org/extensions/xep-0225.html">XMPP Component Protocol</a></dt> 
     <dd>An alternative to connecting to an XMPP server as a client; allows
     custom code to respond to XMPP events according to custom business
     logic.</dd>
 
-    <dt><a href="http://xmpp.org/extensions/xep-0235.html">OAuth-over-XMPP (XEP-0235)</a></dt> 
+    <dt><a href="https://xmpp.org/extensions/xep-0235.html">OAuth-over-XMPP (XEP-0235)</a></dt> 
     <dd>OAuth defined for XMPP PubSub subscription management. Used as an
     alternative to trusting JIDs and associating them directly with
     accounts.</dd>
 
-    <dt><a href="http://twistedmatrix.com/trac/wiki/TwistedWords">Twisted Words</a></dt>
+    <dt><a href="https://twistedmatrix.com/trac/wiki/TwistedWords">Twisted Words</a></dt>
     <dd>An XMPP layer for Twisted. Can be run as a stand-alone server or as a
     component with an external XMPP server.</dd>
 
@@ -197,10 +176,10 @@ Blocks of Real-Time Distribution</a> (PDF)</p>
     <dd>C library for event-driven networking. Most of the frameworks for
     higher-level languages use this.</dd>
 
-    <dt><a href="http://tools.ietf.org/html/rfc2617">HTTP Authentication</a></dt>
+    <dt><a href="https://tools.ietf.org/html/rfc2617">HTTP Authentication</a></dt>
     <dd>Traditional username / password style authentication for HTTP.</dd>
 
-    <dt><a href="http://oauth.net/">OAuth</a></dt> 
+    <dt><a href="https://oauth.net/">OAuth</a></dt> 
     <dd>Standardized token-based delegated authentication. Users can authorize
     third parties to act on their behalf, allowing granular revocation if and
     when necessary. Often used for securing web APIs these days.</dd>
@@ -209,18 +188,12 @@ Blocks of Real-Time Distribution</a> (PDF)</p>
 
   <div id="footer">
     <div>
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/us/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/us/80x15.png" /></a>
+      <a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/us/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/us/80x15.png"></a>
     </div>
-    <div><a href="http://mojodna.net/">Seth Fitzsimmons</a></div>
-    <div><a class="code" href="http://github.com/mojodna">github.com/mojodna</a></div>
+    <div><a href="/">Seth Fitzsimmons</a></div>
+    <div><a class="code" href="https://github.com/mojodna">github.com/mojodna</a></div>
     <div>seth@mojodna.net</div>
   </div>
 </div>
-<!-- Woopra Code Start -->
-<script type="text/javascript">
-var _wh = ((document.location.protocol=='https:') ? "https://sec1.woopra.com" : "http://static.woopra.com");
-document.write(unescape("%3Cscript src='" + _wh + "/js/woopra.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<!-- Woopra Code End -->
 </body>
 </html>
