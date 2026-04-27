@@ -24,15 +24,25 @@ export default function (eleventyConfig) {
   // Override liquidjs's built-in `date` filter to format in UTC. Without this,
   // dates parsed from YYYY-MM-DD filenames (midnight UTC) shift to the previous
   // calendar day in negative-offset timezones, breaking Jekyll-style URL paths.
+  // Token order matters: longer tokens (%-d) come before their shorter forms (%d).
+  const monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   eleventyConfig.addLiquidFilter("date", (date, format) => {
+    if (date === "now" || date === "today") date = new Date();
     if (!(date instanceof Date)) date = new Date(date);
-    return format
-      .replace("%Y", date.getUTCFullYear())
-      .replace("%m", String(date.getUTCMonth() + 1).padStart(2, "0"))
-      .replace("%d", String(date.getUTCDate()).padStart(2, "0"))
-      .replace("%H", String(date.getUTCHours()).padStart(2, "0"))
-      .replace("%M", String(date.getUTCMinutes()).padStart(2, "0"))
-      .replace("%S", String(date.getUTCSeconds()).padStart(2, "0"));
+    const tokens = {
+      "%Y": date.getUTCFullYear(),
+      "%m": String(date.getUTCMonth() + 1).padStart(2, "0"),
+      "%-d": date.getUTCDate(),
+      "%d": String(date.getUTCDate()).padStart(2, "0"),
+      "%b": monthsShort[date.getUTCMonth()],
+      "%H": String(date.getUTCHours()).padStart(2, "0"),
+      "%M": String(date.getUTCMinutes()).padStart(2, "0"),
+      "%S": String(date.getUTCSeconds()).padStart(2, "0"),
+    };
+    return Object.entries(tokens).reduce(
+      (out, [token, value]) => out.replaceAll(token, value),
+      format,
+    );
   });
 
   eleventyConfig.addLayoutAlias("default", "layouts/default.liquid");
