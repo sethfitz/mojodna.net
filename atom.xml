@@ -1,27 +1,28 @@
 ---
-layout: nil
+permalink: /atom.xml
+eleventyExcludeFromCollections: true
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
- 
- <title>Digressions of a Drive-by Hacker</title>
- <link href="http://feeds2.feedburner.com/mojodnadotnet" rel="self"/>
- <link href="http://mojodna.net/"/>
- <updated>{{ site.time | date_to_xmlschema }}</updated>
- <id>http://mojodna.net/</id>
- <author>
-   <name>Seth Fitzsimmons</name>
-   <email>seth@mojodna.net</email>
- </author>
- 
- {% for post in site.posts %}
- <entry>
-   <title>{{ post.title }}</title>
-   <link href="http://mojodna.net{{ post.url }}"/>
-   <updated>{{ post.date | date_to_xmlschema }}</updated>
-   <id>http://mojodna.net{{ post.id }}</id>
-   <content type="html">{{ post.content | xml_escape }}</content>
- </entry>
- {% endfor %}
- 
+
+  <title>Digressions of a Drive-by Hacker</title>
+  <link href="https://mojodna.net/atom.xml" rel="self"/>
+  <link href="https://mojodna.net/"/>
+  <updated>{{ "now" | date: "%Y-%m-%dT%H:%M:%SZ" }}</updated>
+  <id>https://mojodna.net/</id>
+  <author>
+    <name>Seth Fitzsimmons</name>
+    <email>seth@mojodna.net</email>
+  </author>
+
+  {% for post in collections.posts reversed %}
+  <entry>
+    <title>{{ post.data.title }}</title>
+    <link href="https://mojodna.net{{ post.url }}"/>
+    <updated>{{ post.date | date: "%Y-%m-%dT%H:%M:%SZ" }}</updated>
+    <id>https://mojodna.net{{ post.url }}</id>
+    <content type="html">{{ post.templateContent | escape }}</content>
+  </entry>
+  {% endfor %}
+
 </feed>

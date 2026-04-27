@@ -52,6 +52,11 @@ export default function (eleventyConfig) {
     collectionApi.getFilteredByTag("posts").sort((a, b) => a.date - b.date),
   );
 
+  // Process .xml files with the Liquid engine so atom.xml renders as a
+  // template. addExtension registers the engine mapping; "xml" in
+  // templateFormats makes Eleventy pick up the file in the first place.
+  eleventyConfig.addExtension("xml", { key: "liquid" });
+
   return {
     dir: {
       input: ".",
@@ -60,5 +65,6 @@ export default function (eleventyConfig) {
     },
     markdownTemplateEngine: "liquid",
     htmlTemplateEngine: "liquid",
+    templateFormats: ["liquid", "md", "njk", "html", "11ty.js", "xml"],
   };
 }
