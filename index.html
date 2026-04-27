@@ -1,13 +1,15 @@
 ---
 layout: default
 title: Seth Fitzsimmons
+permalink: /index.html
+eleventyExcludeFromCollections: true
 ---
 
 <h1>Digressions of a Drive-by Hacker</h1>
- 
+
 <h2>Assorted Scribblings</h2>
 <ul class="posts">
-  {% for post in site.posts %}
-    <li><span>{{ post.date | date_to_string }}</span>: <a href="{{ post.url }}">{{ post.title }}</a></li>
+  {% for post in collections.posts reversed %}
+    <li><span>{{ post.date | date: "%b %-d, %Y" }}</span>: <a href="{{ post.url }}">{{ post.data.title }}</a></li>
   {% endfor %}
 </ul>
