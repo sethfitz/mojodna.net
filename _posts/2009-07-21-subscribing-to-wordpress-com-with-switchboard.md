@@ -3,14 +3,12 @@ layout: post
 title: Subscribing to Wordpress.com with Switchboard
 ---
 
-## {{ title }}
-
 Last week, Andy Skelton announced [Real-time Wordpress.com
-subscriptions](http://andy.wordpress.com/2009/07/16/real-time-wordpress-com-subscription/)
+subscriptions](https://andy.wordpress.com/2009/07/16/real-time-wordpress-com-subscription/)
 via XMPP. It does IM, but more interestingly for me, it supports PubSub. Had I
 realized this when he posted that, I would have included it as an example in
 [switchboard : XMPP :: curl :
-HTTP](http://mojodna.net/2009/07/16/switchboard-curl-for-xmpp.html) alongside
+HTTP](https://mojodna.net/2009/07/16/switchboard-curl-for-xmpp.html) alongside
 Fire Eagle and Superfeedr. What's done is done, however, so here's a quick
 rundown of how to interact with Wordpress.com using Switchboard.
 
@@ -144,7 +142,7 @@ class WordpressJack
         payload.elements.each do |item|
           # grab the feed out of the payload
           feed = item.first_element("feed")
-          
+
           # TODO determine whether it's a comment or a post
           # for now, we'll assume it's a post
           # invoke the :new_post hook with the feed subtree
@@ -182,4 +180,4 @@ switchboard.run!
 ```
 
 There are a number of improvements that can be made here (this is the "making
-blind assumptions about responses" version).  Go wild.
+blind assumptions about responses" version). Go wild.

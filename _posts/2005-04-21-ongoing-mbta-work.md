@@ -3,8 +3,6 @@ layout: post
 title: Ongoing MBTA Work
 ---
 
-## {{ title }}
-
 **Update:** I haven't worked on this in many moons and it has ceased to work.
 [Here is a currently working MBTA map.](http://www.thrall.net/maps/mbta.html)
 

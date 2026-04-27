@@ -3,12 +3,10 @@ layout: post
 title: "make For Data Using Makefiles"
 ---
 
-# make For Data Using Makefiles
-
-[Mr. Mather](http://smathermather.wordpress.com/) recently spotted the
+[Mr. Mather](https://smathermather.wordpress.com/) recently spotted the
 [`Makefile`](https://github.com/stamen/toner-carto/blob/master/Makefile) we've
 been using for the [updated version of
-Toner](http://content.stamen.com/new_knight_grant_new_toner_new_infrastructure)
+Toner](https://content.stamen.com/new_knight_grant_new_toner_new_infrastructure)
 and asked for a walk-through.
 
 Like many other people who wrangle data for a living, I've been in on-and-off
@@ -43,7 +41,7 @@ execution from stopping). For example:
 carto -l $< > $@ || (rm -f $@; false)
 ```
 
-This runs `carto`; if it fails, it deletes the output (`$@`).  However, if
+This runs `carto`; if it fails, it deletes the output (`$@`). However, if
 there was no output, `rm` will return successfully, but the task actually
 failed. To work-around that, we execute `rm` in a subshell (using parentheses)
 and explicitly return false (`false`) so that `make` ceases execution.
@@ -58,7 +56,7 @@ you want to execute a command only if the first was successful.
 ### `> /dev/null 2>&1`
 
 POSIX processes are provided 3 file descriptions (handles to files or file-like
-things) by default.  `stdin` (content from a file or other source like
+things) by default. `stdin` (content from a file or other source like
 a keyboard) is file descriptor `0`, `stdout` is `1`, and `stderr` is `2`. Thus,
 `echo hi > /dev/null 2>&1` says to redirect `stdout` (the default output) to
 `/dev/null` (into the abyss) and then `stderr` (`2`) to the same place as
@@ -186,7 +184,7 @@ $(foreach a,$(shell set -a && source .env 2> /dev/null; node_modules/.bin/pgexpl
 
 > Use `pgexplode` to expand `DATABASE\_URL` into [`libpq`-compatible
 > environment
-> variables](http://www.postgresql.org/docs/9.4/static/libpq-envars.html). This
+> variables](https://www.postgresql.org/docs/9.4/static/libpq-envars.html). This
 > will read from the environment (`$DATABASE\_URL`) if one isn't present in
 > `.env` (or `.env` doesn't exist).
 
@@ -204,7 +202,7 @@ endef
 
 > Macro definitions that will strip `db/` from targets' `$@` (target name) and
 > use it as the name of a SQL file or PostgreSQL extension (`$(subst
-> db/,,$@)`).  The first command (`psql -c "\d $(subst db/,,$@)" > /dev/null
+> db/,,$@)`). The first command (`psql -c "\d $(subst db/,,$@)" > /dev/null
 > 2>&1`) checks for the presence of a relation in the database specified by
 > `DATABASE\_URL` and only evaluates SQL commands if it fails. `\d <name>`
 > checks for the presence of a relation of any kind, `\dx` for loaded
@@ -311,7 +309,7 @@ xml: $(subst .yml,.xml,$(filter-out circle.yml,$(wildcard *.yml)))
 ```
 
 > Builds `*.mml` by interpolating environment variables into
-> a [Mustache](http://mustache.github.io/)-templated YAML file
+> a [Mustache](https://mustache.github.io/)-templated YAML file
 > ([`interp`](https://github.com/stamen/interp)) and converting to JSON
 > ([`js-yaml`](https://github.com/nodeca/js-yaml)). `tmp.mml` is used so that
 > `mv` can atomically move the file into place (without doing this, TileMill
@@ -485,7 +483,7 @@ $(foreach place,$(PLACES),$(eval $(call import,$(place))))
 
 data/extract/%:
         @mkdir -p $$(dirname $@)
-        curl -Lf http://download.geofabrik.de/$(@:data/extract/%=%) -o $@
+        curl -Lf https://download.geofabrik.de/$(@:data/extract/%=%) -o $@
 
 .SECONDARY: data/metro/%
 
@@ -495,12 +493,12 @@ data/metro/%:
 ```
 
 OSM extract patterns; i.e. anything under `data/extract/` will be downloaded
-from [Geofabrik](http://www.geofabrik.de/), anything under `data/metro/` from
+from [Geofabrik](https://www.geofabrik.de/), anything under `data/metro/` from
 [Mapzen](https://mapzen.com/)'s [Metro
 Extracts](https://mapzen.com/metro-extracts/)).
 
 > These are marked as `.SECONDARY` to prevent them from being deleted (as
-> they're "expensive" to create).  **Note**: this isn't quite right; my
+> they're "expensive" to create). **Note**: this isn't quite right; my
 > intention is to keep them around but also to delete them if the target
 > failed.
 >
@@ -520,7 +518,7 @@ Extracts](https://mapzen.com/metro-extracts/)).
 # so the zip matches the shapefile name
 data/osmdata/land_polygons.zip:
         @mkdir -p $$(dirname $@)
-        curl -Lf http://data.openstreetmapdata.com/land-polygons-complete-3857.zip -o $@
+        curl -Lf https://data.openstreetmapdata.com/land-polygons-complete-3857.zip -o $@
 
 shp/osmdata/%.shp \
 shp/osmdata/%.dbf \
@@ -595,7 +593,7 @@ endef
 ```
 
 > Macro definition that creates `db/ne\_<whatever>` and `shp/natural\_earth/*`
-> targets for [Natural Earth](http://www.naturalearthdata.com/) sources. It
+> targets for [Natural Earth](https://www.naturalearthdata.com/) sources. It
 > assumes that it's called with arguments in the form `<name>:<source
 > file>:[shapefile]`. (If someone can help simplify the repeated `$(strip
 > $(word 1, $(subst :, ,$(1))))` declarations (used to extract the first
@@ -653,7 +651,7 @@ define natural_earth_sources
 
 data/ne/$(1)/$(2)/%.zip:
         @mkdir -p $$(dir $$@)
-        curl -fL http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/$(1)/$(2)/$$(@:data/ne/$(1)/$(2)/%=%) -o $$@
+        curl -fL https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/$(1)/$(2)/$$(@:data/ne/$(1)/$(2)/%=%) -o $$@
 
 .SECONDARY: data/ne/$(1)/$(2)/%.zip
 

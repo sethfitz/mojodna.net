@@ -3,16 +3,14 @@ layout: post
 title: Continuing to map the MBTA
 ---
 
-## {{ title }}
-
-**Update:** I haven't worked on this in many moons and it has ceased to work.  [Here is a currently working MBTA map.](http://www.thrall.net/maps/mbta.html)
+**Update:** I haven't worked on this in many moons and it has ceased to work. [Here is a currently working MBTA map.](http://www.thrall.net/maps/mbta.html)
 
 Ok, so [it](/2005/04/19/mbta-maps/)'s not that useful right now, since it only
 covers a small part of Cambridge at one zoom level. And since I don't really
 have the time to keep working on it right now, I'll post what I've got so
 anyone else can continue.
 
-* [Maps in PDF](http://www.mbta.com/traveling_t/schedules_pdfmaps_system.asp)
+* [Maps in PDF](https://www.mbta.com/traveling_t/schedules_pdfmaps_system.asp)
 * [Tiles so far (x=5378, y=-740 (top left) to x=5386, y=-733 (bottom
   right))](http://maps.mojodna.net/mbta/mbta-images.tgz) (these are 128x128
   each)

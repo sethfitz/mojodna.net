@@ -3,17 +3,15 @@ layout: post
 title: "Searchable: Annotation-Driven Indexing and Searching with Lucene"
 ---
 
-## {{ title }}
+## Overview
 
-### Overview
-
-_[Searchable](http://github.com/mojodna/searchable) is a toolkit for Lucene
+_[Searchable](https://github.com/mojodna/searchable) is a toolkit for Lucene
 that harnesses the power of annotations to specify what properties to index
 and how to treat them._
 
 ### Basics
 
-[Searchable](http://github.com/mojodna/searchable) requires JDK 1.5 and Lucene
+[Searchable](https://github.com/mojodna/searchable) requires JDK 1.5 and Lucene
 1.9+.
 
 At its core, Searchable provides a set of annotations that can be used to
@@ -22,13 +20,13 @@ It can also be used without the annotations (by writing a custom
 **Indexer**/**Searcher** combination). However, Searchable really shines when
 custom **Indexers** and **Searchers** are combined with the annotations.
 
-Searchable 0.8-SNAPSHOT can use [Apache Solr](http://lucene.apache.org/solr/)
+Searchable 0.8-SNAPSHOT can use [Apache Solr](https://lucene.apache.org/solr/)
 for indexing and searching via **SolrIndexer** and **SolrSearcher**
 (**SchemaGenerator** will create an appropriate Solr schema for you; some
 tweaks may be necessary).
 
 Searchable is available on GitHub here:
-[http://github.com/mojodna/searchable](http://github.com/mojodna/searchable)
+[https://github.com/mojodna/searchable](https://github.com/mojodna/searchable)
 Do with it what you will.
 
 Please see the examples below for pointers on usage.
@@ -58,14 +56,14 @@ public Integer getKey() { ... }
 This specifies that a field should be indexed. The following attributes are
 available:
 
-* aliases - Array of aliases to also use as field names.  Default: none.
-* boost - Boost factor (as a float) for this field.  Default: 1.0.
-* name - Field name to use for this property.  Default: property name.
+* aliases - Array of aliases to also use as field names. Default: none.
+* boost - Boost factor (as a float) for this field. Default: 1.0.
+* name - Field name to use for this property. Default: property name.
 * nested - Whether to index this field in a nested context (i.e. a
-  _Searchable_ as a property of another _Searchable_).  Default: false.
-* stored - Store this property in the index.  Default: false.
-* storeTermVector - Store term vectors for this field.  Default: false.
-* tokenized - Tokenize the value of this property before adding it to the index.  Default: true.
+  _Searchable_ as a property of another _Searchable_). Default: false.
+* stored - Store this property in the index. Default: false.
+* storeTermVector - Store term vectors for this field. Default: false.
+* tokenized - Tokenize the value of this property before adding it to the index. Default: true.
 
 e.g.:
 
@@ -80,10 +78,10 @@ This specifies that a field should be stored in the index. In typical usage,
 this should not be necessary, although you may find that it comes in hand from
 time to time. The following attributes are available:
 
-* aliases - Array of aliases to also use as field names.  Default: none.
-* name - Field name to use for this property.  Default: property name.
+* aliases - Array of aliases to also use as field names. Default: none.
+* name - Field name to use for this property. Default: property name.
 * nested - Whether to store this field in a nested context (i.e. a
-  _Searchable_ as a property of another _Searchable_).  Default: false.
+  _Searchable_ as a property of another _Searchable_). Default: false.
 
 e.g.:
 

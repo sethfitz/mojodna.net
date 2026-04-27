@@ -3,14 +3,12 @@ layout: post
 title: Switchboard as a Framework
 ---
 
-## {{ title }}
-
 While Switchboard is a [useful tool for debugging and probing XMPP
-services](http://mojodna.net/2009/07/16/switchboard-curl-for-xmpp.html), it's
+services](https://mojodna.net/2009/07/16/switchboard-curl-for-xmpp.html), it's
 also a convenient and full-featured framework for building clients and
 components.
 
-### A Simple Client
+## A Simple Client
 
 This is the simplest client (bot) I could think of. It listens for input and
 replies with whatever was sent in the first place.
@@ -109,7 +107,7 @@ def self.connect(switchboard, settings)
   def switchboard.helper_method
     # do something
   end
-  
+
   switchboard.on_message do |message|
     helper_method
   end
@@ -129,7 +127,7 @@ object by extending a helper *Module*:
 ```ruby
 def self.connect(switchoard, settings)
   switchboard.extend(Switchboard::Helpers::PubSubHelper)
-  
+
   switchboard.on_startup do
     # ...
   end
@@ -186,16 +184,16 @@ The following jacks are available from the standard distribution:
 * `RosterDebugJack` - Like the `DebugJack`, but for roster events and
   colorless.
 
-[Fire Hydrant](http://github.com/mojodna/fire-hydrant/tree) includes a
+[Fire Hydrant](https://github.com/mojodna/fire-hydrant/tree) includes a
 `FireEagleJack` that introduces a `location_update` hook that yields a
 `FireEagle::User` object, demonstrating that Switchboard apps can be
 blissfully unaware of XMPP semantics when using the right jacks.
 
 ### A More Complex Example, with Pandas
 
-[Bamboo Shooter](http://github.com/mojodna/fire-hydrant/tree) is a
-pseudo-realtime interface to the [Flickr](http://flickr.com/) [Panda
-APIs](http://code.flickr.com/blog/2009/03/03/panda-tuesday-the-history-of-the-panda-new-apis-explore-and-you/).
+[Bamboo Shooter](https://github.com/mojodna/fire-hydrant/tree) is a
+pseudo-realtime interface to the [Flickr](https://flickr.com/) [Panda
+APIs](https://code.flickr.com/blog/2009/03/03/panda-tuesday-the-history-of-the-panda-new-apis-explore-and-you/).
 It polls the APIs once per minute and dribbles the responses out over XMPP
 over the course of the subsequent minute.
 
@@ -210,13 +208,13 @@ EM.run do
     @shooter = Bamboo::Shooter.new(SETTINGS)
     @shooter.run!
   end
-  
+
   # ...
 end
 ```
 
-Secondly, it implements a [PubSub](http://xmpp.org/extensions/xep-0060.html)
-service as a [component](http://xmpp.org/extensions/xep-0225.html), so it
+Secondly, it implements a [PubSub](https://xmpp.org/extensions/xep-0060.html)
+service as a [component](https://xmpp.org/extensions/xep-0225.html), so it
 subclasses `Switchboard::Component` rather than `Switchboard::Client`. A
 side-effect of implementing a service as a component is that the logic for
 everything that the server would ordinarily do has to be managed by your code
@@ -225,7 +223,7 @@ is usually the first example of this.
 
 PubSub requests and subscription handling are application-specific concerns,
 but much of the implementation is essentially boilerplate.
-[Dovetail](http://github.com/mojodna/dovetail/tree) represents a start at
+[Dovetail](https://github.com/mojodna/dovetail/tree) represents a start at
 abstracting this, but it's incomplete at the moment. `<subscribe />` and
 `<unsubscribe />` requests are the only operations currently supported; the fallback is to return a `<feature-not-implemented />` response:
 
@@ -238,7 +236,7 @@ def iq_handler(iq)
       puts "Subscription to #{node} requested by #{iq.from}"
       subscribers[node] ||= []
       unless subscribers[node].include?(iq.from.strip)
-        subscribers[node] << iq.from.strip 
+        subscribers[node] << iq.from.strip
       end
 
       resp = Jabber::Iq.new(:result, iq.from)
@@ -304,7 +302,7 @@ EM.run do
     }
 
     ["ling ling", "hsing hsing", "wang wang"].each do |panda|
-      req = EventMachine::HttpRequest.new('http://api.flickr.com/services/rest/')
+      req = EventMachine::HttpRequest.new('https://api.flickr.com/services/rest/')
       http = req.get(:query => params.merge('panda_name' => panda))
 
       http.callback do
@@ -418,7 +416,7 @@ end
 ```
 
 Getting Bamboo Shooter running is a little tricky, as it requires an XMPP that
-supports the component protocol (I use [ejabberd](http://ejabberd.im/) with
+supports the component protocol (I use [ejabberd](https://ejabberd.im/) with
 the following configuration). More complicatedly, this server either needs to
 be public (with DNS SRV records configured to support federation) or on a
 private network with a second XMPP server running. When developing locally, I
@@ -450,4 +448,4 @@ ZeroConf (`hostname.local`; `avahi-daemon` on Ubuntu makes this possible).
 That's all I've got for now. It should be enough to get you started building
 clients and components, but if you have any questions, post a comment below or
 write to the [Switchboard Google
-Group](http://groups.google.com/group/switchboard).
+Group](https://groups.google.com/group/switchboard).

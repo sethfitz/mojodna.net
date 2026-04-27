@@ -3,14 +3,12 @@ layout: post
 title: "switchboard : XMPP :: curl : HTTP"
 ---
 
-## {{ title }}
-
-### Quick Start
+## Quick Start
 
 * Switchboard on GitHub:
-[http://github.com/mojodna/switchboard/tree](http://github.com/mojodna/switchboard/tree)
+[https://github.com/mojodna/switchboard/tree](https://github.com/mojodna/switchboard/tree)
 * Switchboard Google Group:
-[http://groups.google.com/group/switchboard](http://groups.google.com/group/switchboard)
+[https://groups.google.com/group/switchboard](https://groups.google.com/group/switchboard)
 
 Here's how to install and use Switchboard for a few basic use-cases:
 
@@ -45,7 +43,7 @@ XMPP is a bit more complicated; it's stateful, it (usually) requires login
 credentials, it's asynchronous, and it has many extensions to the core
 protocol that are in varying levels of use. Traditionally, in order to explore
 an XMPP service, you'd have to delve into the advanced features of a client
-like [Psi](http://psi-im.org/) or [Synapse](http://synapse.im/), often
+like [Psi](https://psi-im.org/) or [Synapse](http://synapse.im/), often
 dropping to the level of entering raw XML to see what happens in response.
 
 Switchboard (and its command-line equivalent, `switchboard`) simplifies the
@@ -57,14 +55,14 @@ behaviors.
 
 Copying and pasting XML isn't the least error-prone process I can think of. In
 addition, I found myself repeatedly testing the same types of stanzas (e.g.
-[PubSub](http://xmpp.org/extensions/xep-0060.html) requests) and attempting to
+[PubSub](https://xmpp.org/extensions/xep-0060.html) requests) and attempting to
 implement extensions for which no implementations existed (i.e. [OAuth over
-XMPP](http://xmpp.org/extensions/xep-0235.html)).
+XMPP](https://xmpp.org/extensions/xep-0235.html)).
 
 Diving into [`xmpp4r`](http://home.gna.org/xmpp4r/)'s functionality led me to
 expose additional features to the command-line tool such as
-[PEP](http://xmpp.org/extensions/xep-0163.html) and [Last
-Activity](http://xmpp.org/extensions/xep-0012.html) to see how difficult it
+[PEP](https://xmpp.org/extensions/xep-0163.html) and [Last
+Activity](https://xmpp.org/extensions/xep-0012.html) to see how difficult it
 would be.
 
 Since all of its dependencies have been released and are installable via
@@ -85,15 +83,15 @@ clients and servers (as components).
 
 Here are a few projects I've worked on that use Switchboard:
 
-* [bamboo-shooter](http://github.com/mojodna/bamboo-shooter/tree) - PubSub for
+* [bamboo-shooter](https://github.com/mojodna/bamboo-shooter/tree) - PubSub for
   Pandas: an pseudo-realtime XMPP interface to the Flickr Panda APIs
-* [fire-hydrant](http://github.com/mojodna/fire-hydrant/tree) - A simple
+* [fire-hydrant](https://github.com/mojodna/fire-hydrant/tree) - A simple
   library (as a Switchboard "jack") for consuming
   [Fire Eagle](http://fireeagle.yahoo.net/)'s [Location Streams](http://feblog.yahoo.net/2009/02/19/fire-eagle-location-streams/)
-* [mars](http://github.com/mojodna/mars/tree) and
-  [jupiter](http://github.com/mojodna/jupiter/tree) - A matched pair of
+* [mars](https://github.com/mojodna/mars/tree) and
+  [jupiter](https://github.com/mojodna/jupiter/tree) - A matched pair of
   experiments mapping REST to XMPP
-* [dovetail](http://github.com/mojodna/dovetail/tree) - A start at a framework
+* [dovetail](https://github.com/mojodna/dovetail/tree) - A start at a framework
   for building PubSub servers (again, as components)
 
 ### What to do?
@@ -105,14 +103,14 @@ basic configuration so you won't have to constantly enter your login
 credentials:
 
 ```bash
-$ switchboard config jid jid@example.com
-$ switchboard config password pa55word
+switchboard config jid jid@example.com
+switchboard config password pa55word
 ```
 
 To get the value of a setting, don't include a value:
 
 ```bash
-$ switchboard config jid # => jid@example.com
+switchboard config jid # => jid@example.com
 ```
 
 Some additional useful settings to set defaults for are:
@@ -123,7 +121,7 @@ Some additional useful settings to set defaults for are:
   *JID*. This is equivalent to `switchboard --resource <resource>`. (*String*)
 * `pubsub.server` - Specify a default server to make PubSub requests against.
   This is equivalent to `switchboard pubsub --server <server>`. (*String*)
-* `oauth` - Use [OAuth](http://oauth.net/) when making PubSub requests. This
+* `oauth` - Use [OAuth](https://oauth.net/) when making PubSub requests. This
   is equivalent to `switchboard pubsub --oauth` and requires that the
   [`oauth` gem](http://oauth.rubyforge.org/) be installed. (`true` /
   `false`)
@@ -150,10 +148,10 @@ Rosters can be listed, added to, or removed from. I'll assume you've
 configured Switchboard with some login credentials.
 
 ```bash
-$ switchboard roster list
-$ switchboard roster online
-$ switchboard roster add friend1@example.org friend2@example.org
-$ switchboard roster remove friend2@example.org enemy@example.org
+switchboard roster list
+switchboard roster online
+switchboard roster add friend1@example.org friend2@example.org
+switchboard roster remove friend2@example.org enemy@example.org
 ```
 
 #### Probing and Discovery
@@ -163,7 +161,7 @@ what a server is capable of. A `disco#info` query is the first step to use
 when determining capabilities:
 
 ```bash
-$ switchboard disco --target jabber.org info
+switchboard disco --target jabber.org info
 ```
 
 The response to this query includes `http://jabber.org/protocol/disco#items`,
@@ -171,64 +169,64 @@ which means that `jabber.org` supports `disco#items` queries, which allow you
 to determine what top-level items (services) are available:
 
 ```bash
-$ switchboard disco --target jabber.org items
+switchboard disco --target jabber.org items
 ```
 
 This response includes `conference.jabber.org`. Let's list items available
 there:
 
 ```bash
-$ switchboard disco --target conference.jabber.org items
+switchboard disco --target conference.jabber.org items
 ```
 
-Whoa.  A list of *MUC*s (multi-user chats) hosted on `conference.jabber.org`.
+Whoa. A list of *MUC*s (multi-user chats) hosted on `conference.jabber.org`.
 
 You can do the same thing to list available PubSub nodes if you're running a
-local copy of [ejabberd](http://ejabberd.im/) or another XMPP server that
+local copy of [ejabberd](https://ejabberd.im/) or another XMPP server that
 supports it. (Note that you may need to prefix your hostname with `pubsub` in
 order to see the nodes.)
 
 #### PubSub
 
 Switchboard supports more of
-[PubSub](http://xmpp.org/extensions/xep-0060.html) than any other extension,
+[PubSub](https://xmpp.org/extensions/xep-0060.html) than any other extension,
 mainly because that's been my primary focus of XMPP experimentation. To get a
 full list of available PubSub commands:
 
 ```bash
-$ switchboard pubsub
+switchboard pubsub
 ```
 
 A basic sequence of events is to subscribe:
 
 ```bash
-$ switchboard pubsub --server <server> subscribe --node <node>
+switchboard pubsub --server <server> subscribe --node <node>
 ```
 
 List subscriptions:
 
 ```bash
-$ switchboard pubsub --server <server> subscriptions
+switchboard pubsub --server <server> subscriptions
 ```
 
 Listen for notifications:
 
 ```bash
-$ switchboard pubsub --server <server> listen
+switchboard pubsub --server <server> listen
 ```
 
 Unsubscribe:
 
 ```bash
-$ switchboard pubsub --server <server> unsubscribe --node <node>
+switchboard pubsub --server <server> unsubscribe --node <node>
 ```
 
 Let's walk through a couple examples.
 
-First, [Superfeedr](http://superfeedr.com/), which bills itself as "real-time
+First, [Superfeedr](https://superfeedr.com/), which bills itself as "real-time
 feed parsing in the cloud". To begin, you'll need to register and activate
 your account. Once you've done that, set up a subscription a
-[Twitter](http://twitter.com/) search for "xmpp":
+[Twitter](https://twitter.com/) search for "xmpp":
 
 ```bash
 $ switchboard --jid <username>@superfeedr.com --password <password> \
@@ -248,7 +246,7 @@ If you're lucky, you'll get an Atom payload or two. Here's one:
 
 ```xml
 <event xmlns='http://jabber.org/protocol/pubsub#event'>
-  <status feed='http://search.twitter.com/search.atom?q=xmpp' xmlns='http://superfeedr.com/xmpp-pubsub-ext'>
+  <status feed='http://search.twitter.com/search.atom?q=xmpp' xmlns='https://superfeedr.com/xmpp-pubsub-ext'>
     <http code='200'>16933 bytes fetched in 0.600034s</http>
     <next_fetch>2009-07-22T17:26:22Z</next_fetch>
   </status>
@@ -257,7 +255,7 @@ If you're lucky, you'll get an Atom payload or two. Here's one:
       <entry xmlns='http://www.w3.org/2005/Atom'>
         <title>Great... trillian update has killed my ability to view my xmpp rosters</title>
         <summary>Great... trillian update has killed my ability to view my &lt;b&gt;xmpp&lt;/b&gt; rosters</summary>
-        <link href='http://superfeedr.com/entries/tr5gfgstf8oqlcgr5opaeotxk39ovtos0oiat7h12mqfuoxdmgbjz1rnjtzswqvja2dqh8cgg31' rel='alternate' type='text/html'/>
+        <link href='https://superfeedr.com/entries/tr5gfgstf8oqlcgr5opaeotxk39ovtos0oiat7h12mqfuoxdmgbjz1rnjtzswqvja2dqh8cgg31' rel='alternate' type='text/html'/>
         <published>2009-07-22T17:10:52Z</published>
         <id>tag:search.twitter.com,2005:2781212809</id>
       </entry>
@@ -266,7 +264,7 @@ If you're lucky, you'll get an Atom payload or two. Here's one:
       <entry xmlns='http://www.w3.org/2005/Atom'>
         <title>usando Tkabber: TKabber is Tcl/Tk Jabber-client with great functionality. It supports MUC, XMPP-statuses a.. http://bit.ly/AsFPg</title>
         <summary>usando Tkabber: TKabber is Tcl/Tk Jabber-client with great functionality. It supports MUC, &lt;b&gt;XMPP&lt;/b&gt;-statuses a.. &lt;a href=&quot;http://bit.ly/AsFPg&quot;&gt;http://bit.ly/AsFPg&lt;/a&gt;</summary>
-        <link href='http://superfeedr.com/entries/w6cezbjniqqgga3bd79ruklxhu7f4a6qqpro76hgz50gzccuekgmehz39yb1zi1cclgo83s' rel='alternate' type='text/html'/>
+        <link href='https://superfeedr.com/entries/w6cezbjniqqgga3bd79ruklxhu7f4a6qqpro76hgz50gzccuekgmehz39yb1zi1cclgo83s' rel='alternate' type='text/html'/>
         <published>2009-07-22T17:07:54Z</published>
         <id>tag:search.twitter.com,2005:2781162048</id>
       </entry>
@@ -340,13 +338,13 @@ $ switchboard pubsub --oauth \
 Listen for location updates:
 
 ```bash
-$ switchboard pubsub --server fireeagle.com listen
+switchboard pubsub --server fireeagle.com listen
 ```
 
 [Update your current location](http://fireeagle.yahoo.net/my/location) and
 watch as the update rolls in. If you'd like to visualize updates with [Google
 Earth](http://earth.google.com/), check out [fire-hydrant on
-GitHub](http://github.com/mojodna/fire-hydrant/tree).
+GitHub](https://github.com/mojodna/fire-hydrant/tree).
 
 We're done, so we may as well clean up and unsubscribe:
 
@@ -362,7 +360,7 @@ $ switchboard pubsub --oauth \
 
 #### PEP (Personal Eventing Protocol)
 
-[PEP](http://xmpp.org/extensions/xep-0163.html) is a specialized version of
+[PEP](https://xmpp.org/extensions/xep-0163.html) is a specialized version of
 PubSub, intended to allow individuals to associate data with their JIDs.
 Switchboard supports publishing of User Tune and User Location.
 
@@ -377,18 +375,18 @@ To publish User Tune, you need to be on a Mac, running iTunes, and have the
 done:
 
 ```bash
-$ switchboard --resource switchtunes pep tune
+switchboard --resource switchtunes pep tune
 ```
 
 To publish User Location, you need to be updating [Fire
 Eagle](http://fireeagle.yahoo.net/)
-([Clarke](http://tomtaylor.co.uk/projects/clarke/) is an excellent background
+([Clarke](https://tomtaylor.co.uk/projects/clarke/) is an excellent background
 updater for OS X) and have the `fire-hydrant` gem installed from GitHub (`sudo
 gem install mojodna-fire-hydrant -s http://gems.github.com`). Once that's
 square:
 
 ```bash
-$ switchboard --resource switchfire pep location
+switchboard --resource switchfire pep location
 ```
 
 #### More
@@ -396,7 +394,7 @@ $ switchboard --resource switchfire pep location
 Switchboard supports more functionality than I've described above. To get a list of general `switchboard` commands (some of which may have sub-commands):
 
 ```bash
-$ switchboard
+switchboard
 ```
 
 ### Getting Help
@@ -405,7 +403,7 @@ In theory, if you want more information about a specific command, you can use
 `switchboard help <command>`. For example:
 
 ```bash
-$ switchboard help pubsub
+switchboard help pubsub
 ```
 
 For now, you'll notice that it's not particularly useful. If you'd like to
@@ -417,7 +415,7 @@ around, such as `Switchboard::Commands::PubSub.help`.
 Writing new Switchboard commands is really easy, assuming that the primary
 application logic that you're depending exists elsewhere (i.e. in `xmpp4r`).
 
-I was on a panel with [Peter St. Andre](http://stpeter.im/) and [Jack Moffitt](http://metajack.im/) at the Glue Conference in Denver this Spring and we got to talking about tools like Switchboard.  Jack wondered how hard it would be to implement something like `grep` for XMPP.
+I was on a panel with [Peter St. Andre](https://stpeter.im/) and [Jack Moffitt](https://metajack.im/) at the Glue Conference in Denver this Spring and we got to talking about tools like Switchboard. Jack wondered how hard it would be to implement something like `grep` for XMPP.
 
 (Jack is one of the authors of a Python project similar to Switchboard named [`poetry`](https://launchpad.net/poetry)).
 
@@ -456,7 +454,7 @@ search for nodes that have a default namespace (e.g. `<presence />`); I'm
 going to assume that this is a REXML quirk.
 
 If you want to take a shot at implementing a Switchboard command,
-[Ping](http://xmpp.org/extensions/xep-0199.html) should be pretty simple.
+[Ping](https://xmpp.org/extensions/xep-0199.html) should be pretty simple.
 Alternately, Switchboard doesn't support sending or receiving basic `<message
 />` stanzas from the command-line. Supporting those would make it simple to
 interact with a service like [identi.ca](http://identi.ca/).

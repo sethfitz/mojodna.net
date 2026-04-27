@@ -3,8 +3,6 @@ layout: post
 title: Teach Capistrano to Deploy From a Tag or Branch
 ---
 
-## {{ title }}
-
 There comes a time in the life of many an application where it becomes more or
 less stable. And once it becomes stable, it also becomes boring because the
 changes that a developer really wants to make are bound to make it unstable,
@@ -34,13 +32,13 @@ end
 With this modification in place, you can now deploy from a branch:
 
 ```bash
-$ RAILS_ENV=qa cap deploy -Sbranch=1.0
+RAILS_ENV=qa cap deploy -Sbranch=1.0
 ```
 
 Or from a tag:
 
 ```bash
-$ RAILS_ENV=production cap deploy -Stag=1.0.6
+RAILS_ENV=production cap deploy -Stag=1.0.6
 ```
 
 Go forth and revel in your instability!

@@ -3,18 +3,16 @@ layout: post
 title: "KVM, libvirt, and Ubuntu 14.04"
 ---
 
-# KVM, libvirt, and Ubuntu 14.04
-
 I recently upgraded one of the servers in the office to Ubuntu 14.04, the most
 recent LTS release. While doing this, I decided that I would figure out a clean
 way of managing virtual machines. This is what I found:
 
-Canonical now publishes [Ubuntu cloud images](http://cloud-images.ubuntu.com/).
+Canonical now publishes [Ubuntu cloud images](https://cloud-images.ubuntu.com/).
 These match the official images that are used on EC2. It turns out that they
 can also be used in a local environment, complete with the customizations that
 `user-data` provide.
 
-[`libvirt`](http://libvirt.org/) appears to be the cleanest abstraction of
+[`libvirt`](https://libvirt.org/) appears to be the cleanest abstraction of
 KVM/QEMU, Xen, LXC, and others, so I took a stab at using that to manage my
 VMs.
 
@@ -34,7 +32,7 @@ To start, I downloaded a qcow2 Ubuntu Cloud image into `libvirt`'s `images/`
 directory:
 
 ```bash
-curl -LO http://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img
+curl -LO https://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img
 sudo cp trusty-server-cloudimg-amd64-disk1.img /var/lib/libvirt/images/
 virsh pool-refresh default # tell libvirt to re-scan for new files
 ```
@@ -55,7 +53,7 @@ waiting for network connections to EC2's internal network that exposes
 metadata. Rather than replicating their environment, the Cloud images have
 a relatively [secret super
 power](https://www.technovelty.org/linux/running-cloud-images-locally.html):
-the ability to pull [`cloud-init`](http://cloudinit.readthedocs.org/en/latest/)
+the ability to pull [`cloud-init`](https://cloudinit.readthedocs.org/en/latest/)
 configurations off of a secondary mounted image.
 
 To create an image containing a ``cloud-init` configuration, create 2 files:
@@ -143,9 +141,9 @@ EOF
 `cloud-init` supports user creation since 0.7.0 (trusty comes with 0.7.5), but
 it does not appear to work locally and I'd like to be able to re-use these
 configurations with Ubuntu 12.04 images (which ship with `cloud-init 0.6.3), so
-I'm doing the same thing by hand with `runcmd`.
+I'm doing the same thing by hand with`runcmd`.
 
 So far (which hasn't been that long), this has been working well. One of the
 next steps is to achieve a similar streamlined workflow for LXC / Docker,
 similar to what [Mike wrote up about LXC and
-Virtualbox](http://mike.teczno.com/notes/disposable-virtualbox-lxc-environments.html).
+Virtualbox](https://mike.teczno.com/notes/disposable-virtualbox-lxc-environments.html).

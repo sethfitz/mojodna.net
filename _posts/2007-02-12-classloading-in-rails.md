@@ -3,8 +3,6 @@ layout: post
 title: Classloading in Rails
 ---
 
-## {{ title }}
-
 Occasionally, I see code similar to the following used as a shortcut to load
 all model objects. It's usually in a Rake task or somewhere that follows a
 "global require" by looping through all available objects and doing something
@@ -14,7 +12,7 @@ there like a dormant volcano, with a wide variety of unpredictable behavior
 waiting to erupt.
 
 In our case, we'd been using said snippet to help test out
-[memcached](http://www.danga.com/memcached/); we would occasionally be handed
+[memcached](https://www.danga.com/memcached/); we would occasionally be handed
 serialized objects of unrecognizable types; the source of the problem turned
 out to be that the object's class definition had not yet been loaded. We also
 discovered that finders in intermediate subclasses (we use <abbr title="Single

@@ -1,0 +1,9 @@
+# Lint config for historical post archive.
+# Posts are preserved verbatim from the pre-11ty Jekyll source; rules that
+# would force editing prose written 2005–2015 are disabled here.
+#
+# MD033 (no inline HTML): old posts use <a><img></a>, <abbr>, <div class="caption">.
+# MD036 (emphasis as heading): false positives on italicized intro lines like
+#   "*Cross-posted from URL*" and on italicized inline code examples.
+[global]
+disable = ["MD033", "MD036"]

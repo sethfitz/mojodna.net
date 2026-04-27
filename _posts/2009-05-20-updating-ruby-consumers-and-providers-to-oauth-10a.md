@@ -3,27 +3,25 @@ layout: post
 title: Updating Ruby Consumers and Providers to OAuth 1.0a
 ---
 
-## {{ title }}
-
 In a previous post, I did a [quick run-through of the changes that were
 introduced in OAuth
 1.0a](/2009/05/20/updating-ruby-consumers-and-providers-to-oauth-10a.html).
 As promised, here's a rough guide to updating Ruby Consumers and Providers to
-1.0a.  Don't mind the pseudo code.
+1.0a. Don't mind the pseudo code.
 
-### Updating Ruby OAuth Consumers to 1.0a
+## Updating Ruby OAuth Consumers to 1.0a
 
 In order for things to work properly, you'll need to use a version of the
 OAuth gem that's at least _0.3.4.1_ (0.3.5 was released on 6/3/09). To install
 it and check the version number:
 
 ```bash
-$ sudo gem install oauth
-$ oauth --version
+sudo gem install oauth
+oauth --version
 ```
 
 Authorization code that once looked like this:
- 
+
 ```ruby
 request_token = consumer.get_request_token
 puts "Please visit the following URL to authorize this application:"
@@ -32,7 +30,7 @@ puts request_token.authorize_url(:oauth_callback => callback_url)
 gets
 access_token = request_token.get_access_token
 ```
- 
+
 Should now look like this:
 
 ```ruby
@@ -65,14 +63,14 @@ whatever it's called): `callback` and `verifier`.
 
 #### Accepting `oauth_callback` During the Request Token Phase
 
-The first step to supporting OAuth 1.0a is to accept `oauth_token` parameters when issuing Request Tokens.  To do this, you'll need to make the `OAuth::RequestProxy::ActionControllerRequest` available to methods that run later in a request's lifecycle:
+The first step to supporting OAuth 1.0a is to accept `oauth_token` parameters when issuing Request Tokens. To do this, you'll need to make the `OAuth::RequestProxy::ActionControllerRequest` available to methods that run later in a request's lifecycle:
 
 ```ruby
 def verify_oauth_signature
   valid = OAuth::Signature.verify(request) do |request_proxy|
     # make the request proxy available outside this block
     @_request_proxy = request_proxy
-    
+
     # proceed normally...
   end
 end
@@ -91,7 +89,7 @@ def request_token
    # request_proxy provides unified interface to params + headers
   request_token.callback = request_proxy.oauth_callback
   request_token.save
-  
+
   render :text => "oauth_token=#{request_token.token}&" \
                   "oauth_token_secret=#{request_token.secret}&" \
                   "oauth_callback_confirmed=true"
@@ -108,7 +106,7 @@ instruct them to enter it into their application).
 ```ruby
 def authorize
   # display the authorization page
-  
+
   render and return unless request.post?
 
   # validate the token
@@ -118,7 +116,7 @@ def authorize
   # generate a verification code
   request_token.verifier = generate_verifier
   request_token.save
-  
+
   if request_token.callback?
     # this was previously params[:oauth_callback]
     redirect_to request_token.callback + "?oauth_verifier=#{request_token.verifier}"
@@ -154,8 +152,8 @@ end
 
 Obviously, there are cleaner ways to do this, but they're presumably very
 specific to individual codebases. If you have questions, check out the
-[oauth-ruby](http://groups.google.com/group/oauth-ruby) mailing list.
+[oauth-ruby](https://groups.google.com/group/oauth-ruby) mailing list.
 Otherwise, patches can be submitted against
-[http://github.com/mojodna/oauth/tree/mergeable](http://github.com/mojodna/oauth/tree/mergeable).
+[https://github.com/mojodna/oauth/tree/mergeable](https://github.com/mojodna/oauth/tree/mergeable).
 
 Good luck!

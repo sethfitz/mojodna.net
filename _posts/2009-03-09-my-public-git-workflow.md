@@ -3,24 +3,22 @@ layout: post
 title: My (public) Git Workflow
 ---
 
-## {{ title }}
-
 **The problem**: You want to be an effective contributor to a public project
 that's using Git.
 
 **The solution**: Follow conventions and keep clean branches to make them
 easier to merge.
 
-### Let's Go
+## Let's Go
 
 For your own projects, it doesn't really matter what you do to publish and
 maintain your code, at least until other people start forking and attempting
 to hack on your stuff. In any case, you should keep things simple. Use topic
 branches for particular features or refactoring if you want, but no big deal.
 
-#### Determining "Active" and "Authoritative" Forks
+### Determining "Active" and "Authoritative" Forks
 
-[GitHub's search](http://github.com/blog/309-new-and-improved-search) attempts
+[GitHub's search](https://github.com/blog/309-new-and-improved-search) attempts
 to surface active projects by displaying the number of forks, number of
 watchers, and recent activity, but it doesn't tell the full story. The "root"
 of the fork tree (which isn't really a tree, but is *kinda* useful to think of
@@ -49,7 +47,7 @@ may focus on stability; you may need bleeding edge features developed by an
 "authoritative" member of the community instead.
 
 GitHub's [Network
-Graph](http://github.com/blog/39-say-hello-to-the-network-graph-visualizer) is
+Graph](https://github.com/blog/39-say-hello-to-the-network-graph-visualizer) is
 a great tool for this purpose. From the interface, you can see which forks
 have been the most active (hint: more &bull;'s), most recently active
 (&bull;'s further right), or have had the most merges (more ⤴'s). Those don't
@@ -77,7 +75,7 @@ unrelated to what you were working on).
 GitHub's Fork Queue cherry picks (e.g. `git cherry-pick 469df8`) commits by
 default, so that's a good way to get your tree in order before adding your own
 changes. If there are changes to your fork's parent, you can [fast forward
-your fork](http://github.com/blog/266-fast-forward-your-fork) before starting
+your fork](https://github.com/blog/266-fast-forward-your-fork) before starting
 work.
 
 **Second rule of thumb**: keep your changes easily apply-able to the
@@ -109,7 +107,7 @@ controversial).
 Write down the order in which your branches should be merged. You can use your
 project wiki or put it at the top of the `README` in your *master* branch.
 ([See my fork of *xmpp4r* to see how I've done
-it.](http://github.com/mojodna/xmpp4r/blob/06ec50260555ba242880dc2c69229ea5f8ff811e/README.rdoc))
+it.](https://github.com/mojodna/xmpp4r/blob/06ec50260555ba242880dc2c69229ea5f8ff811e/README.rdoc))
 At this point, your *master* branch is just the default view of your fork and
 shouldn't be considerably different from the branch of the authoritative copy
 you're tracking (see the exception below).
@@ -150,14 +148,14 @@ branches, as above, but also information about how you're treating the
 ### Maintaining a Project
 
 Over the last couple months, I've become one of the authoritative forks for
-the [OAuth gem](http://github.com/mojodna/oauth), indirectly resulting in this
+the [OAuth gem](https://github.com/mojodna/oauth), indirectly resulting in this
 document. I've attempted to be consistent in the management of my fork,
 including publishing periodic releases for others to test functionality, but
 it became clear that my methods weren't as transparent as they ought to be.
 
 As a maintainer (or authoritative fork), you frequently find the need to merge
 in work from other developers. GitHub's [Fork
-Queue](http://github.com/blog/270-the-fork-queue) is excellent for this, but
+Queue](https://github.com/blog/270-the-fork-queue) is excellent for this, but
 it's not the last word.
 
 The Fork Queue is perfect for merging individual commits, but when someone
@@ -177,7 +175,7 @@ making it more difficult to find un-applied patches (as the same patch may
 exist with multiple SHAs).
 
 Merging changes locally is more difficult, but the [github
-gem](http://github.com/defunkt/github-gem) makes it easier by pulling in the
+gem](https://github.com/defunkt/github-gem) makes it easier by pulling in the
 entire patch universe with `gh network fetch`. Once that's been done, the
 combination of `gh network commits`, [GitX](http://gitx.frim.nl/), and the
 Network Graph make it relatively easy to identify commits ripe for picking.

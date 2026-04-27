@@ -3,12 +3,10 @@ layout: post
 title: An Idiot's Guide to OAuth 1.0a
 ---
 
-## {{ title }}
-
 I'm lazy. I don't usually enjoy re-reading things I've already read before
 (Matt Ruff and Neil Stephenson books are an exception). So, as a service to
 all 3 of my readers, I'll summarize the changes to the
-[OAuth](http://oauth.net/) specification for [1.0a (draft
+[OAuth](https://oauth.net/) specification for [1.0a (draft
 3)](http://oauth.googlecode.com/svn/spec/core/1.0a/drafts/3/oauth-core-1_0a.html)
 as I understand them. Finding changes in a large document is a pain--you have
 better things to do with your time. Embrace your inner ignorance and leave
@@ -18,13 +16,13 @@ As an added bonus, I'll demonstrate how to [update consumer and provider code
 using the Ruby
 library](/2009/05/20/updating-ruby-consumers-and-providers-to-oauth-10a.html).
 
-### What Happened?
+## What Happened?
 
 [Much](http://www.readwriteweb.com/archives/how_the_oauth_security_battle_was_won_open_web_sty.php)
 has been written about this
-[elsewhere](http://www.hueniverse.com/hueniverse/2009/04/explaining-the-oauth-session-fixation-attack.html),
+[elsewhere](https://www.hueniverse.com/hueniverse/2009/04/explaining-the-oauth-session-fixation-attack.html),
 so I'll be brief. A [_session fixation_ attack was
-discovered](http://oauth.net/advisories/2009-1) a little over a month ago.
+discovered](https://oauth.net/advisories/2009-1) a little over a month ago.
 Essentially, it affixes **your** sessions to someone else's. Imagine burrs or
 inverted balls of duct tape with little teeny messages (on grains of rice)
 attached to them.

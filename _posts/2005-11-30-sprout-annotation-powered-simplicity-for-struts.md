@@ -3,9 +3,7 @@ layout: post
 title: "Sprout: Annotation-Powered Simplicity for Struts"
 ---
 
-## {{ title }}
-
-### Overview
+## Overview
 
 _Sprout aims to significantly simplify development with Struts by reducing the
 amount of configuration required through the use of annotations and sensible
@@ -13,7 +11,7 @@ defaults._
 
 ### Basics
 
-Sprout requires JDK 1.5.  Without that, you're out of luck.
+Sprout requires JDK 1.5. Without that, you're out of luck.
 
 Sprout is an extension of a Struts `MappingDispatchAction`, which allows for
 multiple actions to be defined within the same _Action_ class. In this case,
@@ -33,7 +31,7 @@ the older Actions are untouched--new development is done using Sprout (I often
 find myself _removing_ action-mappings while adding new functionality).
 
 Sprout is available on GitHub here:
-[http://github.com/mojodna/sprout](http://github.com/mojodna/sprout) Do with
+[https://github.com/mojodna/sprout](https://github.com/mojodna/sprout) Do with
 it what you will.
 
 ### Annotations
@@ -206,7 +204,8 @@ initialization process.
 _These support classes only support the **byName** auto-wiring mechanism._
 
 ### Q + A
+
 * Q: Why the Spring dependencies?
-* A: I'm already using Spring.  There's a good chance that you are as well.
-     Removing the dependency makes reflection upon the registered actions (or
-     finding them in the first place) significantly more difficult.
+* A: I'm already using Spring. There's a good chance that you are as well.
+  Removing the dependency makes reflection upon the registered actions (or
+  finding them in the first place) significantly more difficult.

@@ -3,11 +3,9 @@ layout: post
 title: Introducing Sprout - Pure annotation goodness
 ---
 
-## {{ title }}
+Summary: [Sprout](https://github.com/mojodna/sprout). Check it out.
 
-Summary: [Sprout](http://github.com/mojodna/sprout).  Check it out.
-
-I have a [Struts](http://struts.apache.org/) application that I work on every
+I have a [Struts](https://struts.apache.org/) application that I work on every
 day. It has been a Struts application for about 3 years. It will likely
 continue to be a Struts application for the foreseeable future (it's now 2009
 and it's a Rails app). I imagine some of you may be in the same position.
@@ -31,7 +29,7 @@ my HTML constructs) is simply too great. JSF in its optimal form also takes an
 event-based view of the web, which just doesn't work so well yet (POSTs
 everywhere!). This isn't about Java frameworks; this is about Struts.
 
-Enter [Ruby on Rails](http://rubyonrails.org/). Nifty. It fits the small
+Enter [Ruby on Rails](https://rubyonrails.org/). Nifty. It fits the small
 development team model much better (I am a development team of 1; Struts and
 its ilk assume and thrive in an environment where tasks can and are divided
 up, such as the one my app was originally written in). It was not created as a
@@ -47,7 +45,7 @@ application that I rarely work on. I like Ruby. But I also use Java.
 
 I recently spent some time focused on making Struts work for me rather than
 accepting the tedium of its status quo. Out grew a
-[Sprout](http://github.com/mojodna/sprout). The extract of something that
+[Sprout](https://github.com/mojodna/sprout). The extract of something that
 makes my life easier. It might do the same for yours. Let me know.
 
 **Update**: Richard Harms took this work a couple years after I abandoned it

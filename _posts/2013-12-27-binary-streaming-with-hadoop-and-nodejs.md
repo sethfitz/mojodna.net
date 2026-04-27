@@ -3,27 +3,25 @@ layout: post
 title: "Binary Streaming with Hadoop (and Node.js)"
 ---
 
-# Binary Streaming with Hadoop (and Node.js)
-
 Manipulating binary data from Hadoop streaming jobs is a black art.
-There are Python ([dumbo](http://klbostee.github.io/dumbo/),
+There are Python ([dumbo](https://klbostee.github.io/dumbo/),
 [pydoop](http://pydoop.sourceforge.net/docs/) and
 [hadoopy](http://www.hadoopy.com/en/latest/)) and
 R ([rmr](https://github.com/RevolutionAnalytics/RHadoop/wiki/rmr)) tools to
 facilitate streaming jobs, but all of them have abstracted the handling of byte
 streams (using [typed
-bytes](http://hadoop.apache.org/docs/current/api/org/apache/hadoop/typedbytes/package-summary.html))
+bytes](https://hadoop.apache.org/docs/current/api/org/apache/hadoop/typedbytes/package-summary.html))
 successfully enough that it's difficult to determine how they actually work.
 Which, as it turns out, is important to know if you're *not* using them.
 
 While researching this topic, I kept returning to [a Stack Overflow
-post](http://stackoverflow.com/questions/15171514/how-to-use-typedbytes-or-rawbytes-in-hadoop-streaming)
+post](https://stackoverflow.com/questions/15171514/how-to-use-typedbytes-or-rawbytes-in-hadoop-streaming)
 that contains more information on this topic in one place than anywhere I've
 seen, but even then it doesn't fully explain what's going on. I found
 additional useful information in
 [HADOOP-1722](https://issues.apache.org/jira/browse/HADOOP-1722) and in [Klaas
 Bosteel's presentation on the
-topic](http://static.last.fm/johan/huguk-20090414/klaas-hadoop-1722.pdf), but
+topic](https://static.last.fm/johan/huguk-20090414/klaas-hadoop-1722.pdf), but
 eventually had to start over and work through it bit by byte.
 
 Without further ado:
@@ -63,7 +61,7 @@ node write.js > string_bytes.tb
 
 The result looks like this:
 
-```
+```text
 00000000  07 00 00 00 03 6b 65 79  00 00 00 00 05 76 61 6c  |.....key.....val|
 00000010  75 65 07 00 00 00 04 6b  65 79 32 00 00 00 00 05  |ue.....key2.....|
 00000020  76 61 6c 75 65                                    |value|
@@ -72,13 +70,13 @@ The result looks like this:
 ## Prepare a `SequenceFile`
 
 `SequenceFile`s are one of Hadoop's solutions to the [small file
-problem](http://blog.cloudera.com/blog/2009/02/the-small-files-problem/). The
+problem](https://blog.cloudera.com/blog/2009/02/the-small-files-problem/). The
 format is supposedly a bit Java-centric, but with streaming, we never need to
 interact with them directly. For our purposes, you can think of them as
 splittable wrappers for records represented as typed bytes.
 
 To convert the typed bytes into
-a [`SequenceFile`](http://hadoop.apache.org/docs/current/api/org/apache/hadoop/io/SequenceFile.html)
+a [`SequenceFile`](https://hadoop.apache.org/docs/current/api/org/apache/hadoop/io/SequenceFile.html)
 stored in HDFS, use `loadtb`:
 
 ```bash
@@ -88,7 +86,7 @@ hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming-2.0.0-cdh4.4.0.jar \
 
 The result looks like this:
 
-```
+```text
 00000000  53 45 51 06 2f 6f 72 67  2e 61 70 61 63 68 65 2e  |SEQ./org.apache.|
 00000010  68 61 64 6f 6f 70 2e 74  79 70 65 64 62 79 74 65  |hadoop.typedbyte|
 00000020  73 2e 54 79 70 65 64 42  79 74 65 73 57 72 69 74  |s.TypedBytesWrit|
@@ -147,7 +145,7 @@ This is the intermediate representation of the `SequenceFile` we prepared
 above, as seen by our mapper. Look familiar? It matches the bytes we created
 above:
 
-```
+```text
 00000000  07 00 00 00 03 6b 65 79  00 00 00 00 05 76 61 6c  |.....key.....val|
 00000010  75 65 07 00 00 00 04 6b  65 79 32 00 00 00 00 06  |ue.....key2.....|
 00000020  76 61 6c 75 65 32                                 |value2|
@@ -157,7 +155,7 @@ Since we didn't specify that compression should be used, the resulting
 `SequenceFile` is slightly different than the one that was created with
 `loadtb`:
 
-```
+```text
 00000000  53 45 51 06 2f 6f 72 67  2e 61 70 61 63 68 65 2e  |SEQ./org.apache.|
 00000010  68 61 64 6f 6f 70 2e 74  79 70 65 64 62 79 74 65  |hadoop.typedbyte|
 00000020  73 2e 54 79 70 65 64 42  79 74 65 73 57 72 69 74  |s.TypedBytesWrit|
@@ -268,7 +266,7 @@ could have used `-io typedbytes`.
 if you look closely, there are some minor differences (which seem to be
 differences in the `SequenceFile`'s metadata):
 
-```
+```text
 00000000  53 45 51 06 2f 6f 72 67  2e 61 70 61 63 68 65 2e  |SEQ./org.apache.|
 00000010  68 61 64 6f 6f 70 2e 74  79 70 65 64 62 79 74 65  |hadoop.typedbyte|
 00000020  73 2e 54 79 70 65 64 42  79 74 65 73 57 72 69 74  |s.TypedBytesWrit|

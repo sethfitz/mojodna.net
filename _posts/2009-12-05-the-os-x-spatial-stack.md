@@ -3,8 +3,6 @@ layout: post
 title: "The OS X Spatial Stack"
 ---
 
-# The OS X Spatial Stack
-
 I've been doing a bunch of spatial analysis and exploration recently. Where I
 previously would have used a Debian or Ubuntu server (or VM) to experiment, I'm
 now using Snow Leopard exclusively.
@@ -60,9 +58,9 @@ The defaults are fine.
 
 ## Homebrew
 
-Next, install [homebrew](http://github.com/mxcl/homebrew). I've found that
+Next, install [homebrew](https://github.com/mxcl/homebrew). I've found that
 homebrew is significantly lighter and easier than
-[MacPorts](http://macports.org/) for installing additional open source
+[MacPorts](https://macports.org/) for installing additional open source
 software, as it re-uses system versions of libraries wherever possible.
 
 Part of the homebrew philosophy is:
@@ -76,8 +74,8 @@ Part of the homebrew philosophy is:
 Homebrew is typically installed in `/usr/local`, so:
 
 ```bash
-$ sudo mkdir -p /usr/local
-$ sudo chown -R `whoami` /usr/local
+sudo mkdir -p /usr/local
+sudo chown -R `whoami` /usr/local
 ```
 
 (If you already had MySQL installed in `/usr/local`, fix it: `sudo chown -R
@@ -86,8 +84,8 @@ mysql:mysql /usr/local/mysql`.)
 Now, install homebrew:
 
 ```bash
-$ cd /usr/local
-$ curl -L http://github.com/mxcl/homebrew/tarball/master | tar xz --strip 1 -C .
+cd /usr/local
+curl -L https://github.com/mxcl/homebrew/tarball/master | tar xz --strip 1 -C .
 ```
 
 ## Homebrew-provided Libraries
@@ -95,11 +93,11 @@ $ curl -L http://github.com/mxcl/homebrew/tarball/master | tar xz --strip 1 -C .
 While we're working with homebrew, let's install a dependencies that we'll
 need later.
 
-[`pkg-config`](http://pkg-config.freedesktop.org/) is necessary to cleanly
+[`pkg-config`](https://pkg-config.freedesktop.org/) is necessary to cleanly
 compile PIL:
 
 ```bash
-$ brew install pkg-config
+brew install pkg-config
 ```
 
 You'll want to make sure that `/usr/local/bin` is in your `$PATH` so that
@@ -107,15 +105,15 @@ You'll want to make sure that `/usr/local/bin` is in your `$PATH` so that
 
 ## KyngChaos Frameworks and Binaries
 
-The [KyngChaos Wiki](http://www.kyngchaos.com/) is the holy grail for OS X
+The [KyngChaos Wiki](https://www.kyngchaos.com/) is the holy grail for OS X
 spatial downloads, as everything is cleanly packaged, up-to-date, and very well
 organized.
 
 From the [Unix Compatibility
-Frameworks](http://www.kyngchaos.com/software:frameworks) page, you'll want to
+Frameworks](https://www.kyngchaos.com/software:frameworks) page, you'll want to
 download and install:
 
-* **FreeType** 
+* **FreeType**
 * **GSL** - The GNU Scientific Library
 * **GDAL Complete** (this includes UnixImageIO (notably `jpeg` and `libpng`), PROJ,
   GEOS, SQLite3 (including Spatialite), and GDAL)
@@ -123,14 +121,14 @@ download and install:
 These will install to `/Library/Frameworks` and will set up pointers to their
 corresponding Python packages in `/Library/Python/2.6/site-packages/`.
 
-From the [Qgis](http://www.kyngchaos.com/software:qgis) page, you'll want the
+From the [Qgis](https://www.kyngchaos.com/software:qgis) page, you'll want the
 most up-to-date Qgis installer (non-standalone). If you intend to open
 Spatialite data sources, you may need to install a more up-to-date version of
 the SQLite3 Framework than is included in the GDAL Complete package (this is
 generally applicable; if you want/need to live on the bleeding edge, install
 frameworks individually).
 
-From the [PostgreSQL](http://www.kyngchaos.com/software:postgres) page,
+From the [PostgreSQL](https://www.kyngchaos.com/software:postgres) page,
 download and install the newest versions of the following:
 
 * **PostgreSQL** (server + client)
@@ -139,7 +137,7 @@ download and install the newest versions of the following:
 ## Mapnik
 
 Thanks to [Dane Springmeyer](http://dbsgeo.com/) and others, Mapnik is now
-[available as a framework](http://mapnik.org/news/2009/dec/16/osx_installers/).
+[available as a framework](https://mapnik.org/news/2009/dec/16/osx_installers/).
 This means fewer `homebrew` dependencies, a simple upgrade path, and
 compatibility with 32-bit QGIS Python plugins. To install it, grab a Snow
 Leopard build from the [Mapnik OSX Downloads page](http://dbsgeo.com/downloads/)
@@ -154,18 +152,17 @@ $ rm -rf /usr/local/lib/mapnik
 $ rm /usr/local/lib/libmapnik.dylib
 ```
 
-
 You can also remove `boost` and `icu` with `homebrew` if nothing else is using
 them:
 
 ```bash
-$ brew uninstall boost
-$ brew uninstall icu
+brew uninstall boost
+brew uninstall icu
 ```
 
 ## Quantumnik
 
-[Quantumnik](http://bitbucket.org/springmeyer/quantumnik/wiki/Home) is a QGIS
+[Quantumnik](https://bitbucket.org/springmeyer/quantumnik/wiki/Home) is a QGIS
 plugin that allows Mapnik to be used for rendering. In addition, it will map
 many QGIS styles to Mapnik styles and provides an interface for editing them. In
 short, it's an excellent way to prototype your maps before starting up a batch
@@ -173,7 +170,7 @@ rendering job.
 
 To install Quantumnik, start up QGIS, enable the **Plugin Installer** in the
 Plugin Manager, choose **Fetch Python Plugins**, add a new repository
-(http://qgis.dbsgeo.com/), find it in the list, and check the box to enable it.
+(<http://qgis.dbsgeo.com/>), find it in the list, and check the box to enable it.
 
 ## Python
 
@@ -193,14 +190,14 @@ We'll start with the easy stuff and `easy_install` the following:
 * [TileCache](http://tilecache.org/) - WMS-C compliant tile server
 
 ```bash
-$ easy_install Flickr.API
-$ easy_install ipython
-$ easy_install nik2img
-$ easy_install Nikweb
-$ easy_install nose
-$ easy_install numscons
-$ easy_install readline
-$ easy_install TileCache
+easy_install Flickr.API
+easy_install ipython
+easy_install nik2img
+easy_install Nikweb
+easy_install nose
+easy_install numscons
+easy_install readline
+easy_install TileCache
 ```
 
 ### PIL
@@ -209,15 +206,15 @@ $ easy_install TileCache
 Download the current source kit and extract it to `/usr/local/src`:
 
 ```bash
-$ cd /usr/local/src
-$ tar zxf ~/Downloads/Imaging-1.1.6.tar.gz
-$ cd Imaging-1.1.6/
+cd /usr/local/src
+tar zxf ~/Downloads/Imaging-1.1.6.tar.gz
+cd Imaging-1.1.6/
 ```
 
 Since you previously installed `pkg-config`, building it is straightforward:
 
 ```bash
-$ python setup.py install
+python setup.py install
 ```
 
 ### matplotlib
@@ -229,15 +226,15 @@ Download the source distribution from SourceForge and extract it to
 `/usr/local/src`:
 
 ```bash
-$ cd /usr/local/src
-$ tar zxf ~/Downloads/matplotlib-0.99.1.2.tar.gz
-$ cd matplotlib-0.99.1.1/ # why yes, this is a mistake in the pkg
+cd /usr/local/src
+tar zxf ~/Downloads/matplotlib-0.99.1.2.tar.gz
+cd matplotlib-0.99.1.1/ # why yes, this is a mistake in the pkg
 ```
 
 Again, this is straightforward:
 
 ```bash
-$ python setup.py install
+python setup.py install
 ```
 
 matplotlib includes the [Basemap
@@ -245,49 +242,49 @@ Toolkit](http://matplotlib.sourceforge.net/basemap/doc/html/), which makes it
 easier to work with cartographic data.
 
 Download the source distribution from
-[SourceForge](http://sourceforge.net/projects/matplotlib/files/matplotlib-toolkits/)
+[SourceForge](https://sourceforge.net/projects/matplotlib/files/matplotlib-toolkits/)
 and extract it to `/usr/local/src`. While you're at it, download `natgrid` from
 the same place.
 
 ```bash
-$ cd /usr/local/src
-$ tar zxf ~/Downloads/basemap-0.99.4.tar.gz
-$ tar zxf ~/Downloads/natgrid-0.1.tar.gz
+cd /usr/local/src
+tar zxf ~/Downloads/basemap-0.99.4.tar.gz
+tar zxf ~/Downloads/natgrid-0.1.tar.gz
 ```
 
 Basemap needs to know where GEOS was installed:
 
 ```bash
-$ cd basemap-0.99.4/
-$ GEOS_DIR=/Library/Frameworks/GEOS.framework/unix python setup.py install
+cd basemap-0.99.4/
+GEOS_DIR=/Library/Frameworks/GEOS.framework/unix python setup.py install
 ```
 
 `natgrid` is straightforward:
 
 ```bash
-$ cd natgrid-0.1/
-$ python setup.py install
+cd natgrid-0.1/
+python setup.py install
 ```
 
 ### numpy / scipy
 
-[numpy and scipy](http://www.scipy.org/) are the Pythonic chainsaws for
+[numpy and scipy](https://www.scipy.org/) are the Pythonic chainsaws for
 scientific computing. numpy will mostly install out-of-the-box, but we'll
 install it from source.
 
 Before we can build them, we need to install a Fortran compiler from [AT&T
 Research](http://r.research.att.com/tools/):
-http://r.research.att.com/gfortran-4.2.3.dmg
+<http://r.research.att.com/gfortran-4.2.3.dmg>
 
 Download source distributions of numpy and scipy from
-SourceForge([numpy](http://sourceforge.net/projects/numpy/files/),
-[scipy](http://sourceforge.net/projects/scipy/files/)) and extract them to
+SourceForge([numpy](https://sourceforge.net/projects/numpy/files/),
+[scipy](https://sourceforge.net/projects/scipy/files/)) and extract them to
 `/usr/local/src`:
 
 ```bash
-$ cd /usr/local/src
-$ tar zxf ~/Downloads/numpy-1.3.0.tar.gz
-$ tar zxf ~/Downloads/scipy-0.7.1.tar.gz
+cd /usr/local/src
+tar zxf ~/Downloads/numpy-1.3.0.tar.gz
+tar zxf ~/Downloads/scipy-0.7.1.tar.gz
 ```
 
 Build and install numpy:
@@ -327,15 +324,15 @@ manually).
 First, check out Cascadenik from Google Code:
 
 ```bash
-$ cd /usr/local/src
-$ svn co http://mapnik-utils.googlecode.com/svn/trunk/serverside/cascadenik
+cd /usr/local/src
+svn co http://mapnik-utils.googlecode.com/svn/trunk/serverside/cascadenik
 ```
 
 Next, build and install it:
 
 ```bash
-$ cd cascadenik
-$ python setup.py install
+cd cascadenik
+python setup.py install
 ```
 
 It will automatically download and install `cssutils` for you before making
@@ -343,16 +340,16 @@ It will automatically download and install `cssutils` for you before making
 
 ## OpenStreetMap
 
-When working with data from [OpenStreetMap](http://openstreetmap.org/),
-[`osm2pgsql`](http://wiki.openstreetmap.org/wiki/Osm2pgsql) and
-[Osmosis](http://wiki.openstreetmap.org/wiki/Osmosis) are critical.
+When working with data from [OpenStreetMap](https://openstreetmap.org/),
+[`osm2pgsql`](https://wiki.openstreetmap.org/wiki/Osm2pgsql) and
+[Osmosis](https://wiki.openstreetmap.org/wiki/Osmosis) are critical.
 
 To install `osm2pgsql`, check it out from OSM's subversion repository and use
 `make` to build and install it, linking against the KyngChaos framework:
 
 ```bash
 $ cd /usr/local/src
-$ svn co http://svn.openstreetmap.org/applications/utils/export/osm2pgsql/ 
+$ svn co https://svn.openstreetmap.org/applications/utils/export/osm2pgsql/
 $ cd osm2pgsql
 $ PATH=$PATH:/Library/Frameworks/GEOS.framework/unix/bin/ \
     CFLAGS="-I/Library/Frameworks/PROJ.framework/unix/include" \
@@ -363,66 +360,66 @@ $ PATH=$PATH:/Library/Frameworks/GEOS.framework/unix/bin/ \
 You'll have to install it by hand to `/usr/local`:
 
 ```bash
-$ install -m 0755 osm2pgsql /usr/local/bin
-$ install default.style /usr/local/share/osm2pgsql
+install -m 0755 osm2pgsql /usr/local/bin
+install default.style /usr/local/share/osm2pgsql
 ```
 
 `default.style` is the standard map of OSM tags to database columns; you'll
 need it when you run an import, even if the defaults are fine.
 
-[Osmosis](http://wiki.openstreetmap.org/wiki/Osmosis) is a filter-driven tool
+[Osmosis](https://wiki.openstreetmap.org/wiki/Osmosis) is a filter-driven tool
 for processing large volumes of OSM XML.
 
 To begin, download the [latest version of
-Osmosis](http://dev.openstreetmap.org/~bretth/osmosis-build/osmosis-latest.tar.gz).
+Osmosis](https://dev.openstreetmap.org/~bretth/osmosis-build/osmosis-latest.tar.gz).
 
 Extract it to `/usr/local`:
 
 ```bash
-$ cd /usr/local
-$ tar zxf ~/Downloads/osmosis-latest-bin.tar.gz
+cd /usr/local
+tar zxf ~/Downloads/osmosis-latest-bin.tar.gz
 ```
 
 Now, create a symlink to the binary:
 
 ```bash
-$ ln -s /usr/local/osmosis-0.36/bin/osmosis /usr/local/bin/osmosis
+ln -s /usr/local/osmosis-0.36/bin/osmosis /usr/local/bin/osmosis
 ```
 
 ## PostgreSQL Additions
 
 At present, the KyngChaos distribution of PostgreSQL does not include the
-[intarray](http://www.postgresql.org/docs/current/static/intarray.html) module
+[intarray](https://www.postgresql.org/docs/current/static/intarray.html) module
 (you can check `/usr/local/pgsql/share/contrib` to see if it's been added).
 `osm2pgsql` uses this module to create updatable Postgres OSM mirrors (meaning
 that you can stay up-to-date by applying [planet
-diffs](http://planet.openstreetmap.org/)).
+diffs](https://planet.openstreetmap.org/)).
 
 This means that we need to build it ourselves. First, [download the source
 tarball corresponding to the version you already have
-installed](http://www.postgresql.org/ftp/source/v8.4.5/). Next, extract it to
+installed](https://www.postgresql.org/ftp/source/v8.4.5/). Next, extract it to
 `/usr/local/src`:
 
 ```bash
-$ cd /usr/local/src
-$ tar zxf ~/Downloads/postgresql-8.4.5.tar.bz2
+cd /usr/local/src
+tar zxf ~/Downloads/postgresql-8.4.5.tar.bz2
 ```
 
 Configure Postgres:
 
 ```bash
-$ cd postgres-8.4.5
-$ ./configure
+cd postgres-8.4.5
+./configure
 ```
 
 Change to the _intarray_ contrib directory and `make` it:
 
 ```bash
-$ cd contrib/intarray
-$ export PATH=/usr/local/pgsql/bin:$PATH
-$ export USE_PGXS=1
-$ make
-$ sudo make install
+cd contrib/intarray
+export PATH=/usr/local/pgsql/bin:$PATH
+export USE_PGXS=1
+make
+sudo make install
 ```
 
 (This same process can be repeated for other extensions that you desire.)
@@ -431,16 +428,16 @@ With `intarray` now installed, you can enable the database of your choosing
 (`osm` in this case):
 
 ```bash
-$ sudo -u postgres psql -d osm -f /usr/local/pgsql/share/contrib/_int.sql
+sudo -u postgres psql -d osm -f /usr/local/pgsql/share/contrib/_int.sql
 ```
 
 ## GUI Utilities
 
 For graphical management of spatial data beyond what Qgis can handle, I usually
-use [Base](http://menial.co.uk/software/base/) (for SQLite databases) and
-[pgAdmin](http://www.pgadmin.org/) (for PostgreSQL databases).
+use [Base](https://menial.co.uk/software/base/) (for SQLite databases) and
+[pgAdmin](https://www.pgadmin.org/) (for PostgreSQL databases).
 
-## Congratulations!
+## Congratulations
 
 You now have a working spatial stack on OS X! There are certainly things missed
 here, but I'll try to keep this up-to-date as I discover new tools and simpler

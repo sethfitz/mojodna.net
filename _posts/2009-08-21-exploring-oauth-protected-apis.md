@@ -3,8 +3,6 @@ layout: post
 title: Exploring OAuth-Protected APIs
 ---
 
-## {{ title }}
-
 From time to time I need to debug OAuth-protected APIs, checking response
 headers and examining XML and JSON payloads. `curl` generally rocks for this
 sort of thing, but when the APIs in question are protected with OAuth, things
@@ -13,17 +11,17 @@ exploration--isn't it nice to browse APIs that return XML in Firefox?
 
 This needn't to be the case.
 
-### Enter `oauth-proxy`
+## Enter `oauth-proxy`
 
 This is why I wrote
-[`oauth-proxy`](http://github.com/mojodna/oauth-proxy). It does what it
+[`oauth-proxy`](https://github.com/mojodna/oauth-proxy). It does what it
 says on the tin: it acts a proxy server that transparently adds OAuth headers
 to requests.
 
-There are 2 steps to using it.  First, install it:
+There are 2 steps to using it. First, install it:
 
 ```bash
-$ easy_install oauth-proxy
+easy_install oauth-proxy
 ```
 
 Then, start it:
@@ -46,7 +44,7 @@ Eagle, for example).
 Once it's been started, use `curl` to make requests through it:
 
 ```bash
-$ curl -x localhost:8001 http://host.name/path
+curl -x localhost:8001 http://host.name/path
 ```
 
 You can also benchmark your APIs through it using ApacheBench (`ab`, as it
@@ -54,7 +52,7 @@ includes support for HTTP proxies). Note that you are introducing additional
 overhead by proxying the request, so your numbers may be a bit off.
 
 ```bash
-$ ab -X localhost:8001 http://host.name/path
+ab -X localhost:8001 http://host.name/path
 ```
 
 Firefox (and browsers in general) supports HTTP proxies, so you can add a
@@ -68,12 +66,12 @@ access token but not the corresponding secrets).
 
 If you're accessing a resource that requires 3-legged OAuth, you'll need a
 token. You may already have one, but if you don't, you can use the [OAuth
-library for Ruby](http://github.com/mojodna/oauth) to obtain one.
+library for Ruby](https://github.com/mojodna/oauth) to obtain one.
 
 First, install the gem (0.3.5 is current as of this writing):
 
 ```bash
-$ sudo gem install oauth
+sudo gem install oauth
 ```
 
 Then, trigger the authorization process from the command-line:
@@ -93,9 +91,9 @@ with `oauth-proxy`.
 
 ### A Concrete Example
 
-Twitter's popular, right?  Let's use that.
+Twitter's popular, right? Let's use that.
 
-First, [register an application](http://twitter.com/apps/new) to get a
+First, [register an application](https://twitter.com/apps/new) to get a
 consumer key and secret. I registered as a "client" application, since the
 command-line still doesn't have a callback url.
 
@@ -108,9 +106,9 @@ Let's authorize.
 $ oauth \
   --consumer-key <consumer key> \
   --consumer-secret <consumer secret> \
-  --access-token-url http://twitter.com/oauth/access_token \
-  --authorize-url http://twitter.com/oauth/authorize \
-  --request-token-url http://twitter.com/oauth/request_token \
+  --access-token-url https://twitter.com/oauth/access_token \
+  --authorize-url https://twitter.com/oauth/authorize \
+  --request-token-url https://twitter.com/oauth/request_token \
   authorize
 ```
 
@@ -133,18 +131,18 @@ $ oauth-proxy \
     --token-secret <token secret>
 ```
 
-Now we're set.  Let's go exploring:
+Now we're set. Let's go exploring:
 
 ```bash
 $ curl -sx http://localhost:8001 \
-    http://twitter.com/statuses/friends_timeline.json | \
+    https://twitter.com/statuses/friends_timeline.json | \
     jsonpretty | pygmentize -l js
 ```
 
 You'll get exactly what you're expecting **and** you'll be using OAuth (this
 is a partially contrived example since Twitter still supports HTTP Base Auth).
 
-([`jsonpretty`](http://github.com/nicksieger/jsonpretty) rocks. `pygmentize`
+([`jsonpretty`](https://github.com/nicksieger/jsonpretty) rocks. `pygmentize`
 (`easy install pygments`) makes it easier to make sense of the chaos.)
 
 That's all. I use this stuff all the time and can't imagine debugging APIs
