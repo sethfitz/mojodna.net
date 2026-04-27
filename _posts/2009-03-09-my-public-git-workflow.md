@@ -3,7 +3,7 @@ layout: post
 title: My (public) Git Workflow
 ---
 
-## {{ page.title }}
+## {{ title }}
 
 **The problem**: You want to be an effective contributor to a public project
 that's using Git.

@@ -3,7 +3,7 @@ layout: post
 title: My (work) Git Workflow
 ---
 
-## {{ page.title }}
+## {{ title }}
 
 **The problem**: You want to track multiple patchsets against an upstream
 Subversion repository easily.

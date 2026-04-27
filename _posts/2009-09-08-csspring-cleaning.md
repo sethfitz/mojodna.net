@@ -3,7 +3,7 @@ layout: post
 title: CSSpring Cleaning
 ---
 
-## {{ page.title }}
+## {{ title }}
 
 I was talking to some front-end devs a couple weeks ago about maintaining CSS
 on an evolving website. In particular, how to figure out which rules are no

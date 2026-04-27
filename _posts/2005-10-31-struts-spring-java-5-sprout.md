@@ -3,7 +3,7 @@ layout: post
 title: Introducing Sprout - Pure annotation goodness
 ---
 
-## {{ page.title }}
+## {{ title }}
 
 Summary: [Sprout](http://github.com/mojodna/sprout).  Check it out.
 

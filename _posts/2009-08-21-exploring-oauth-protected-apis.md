@@ -3,7 +3,7 @@ layout: post
 title: Exploring OAuth-Protected APIs
 ---
 
-## {{ page.title }}
+## {{ title }}
 
 From time to time I need to debug OAuth-protected APIs, checking response
 headers and examining XML and JSON payloads. `curl` generally rocks for this

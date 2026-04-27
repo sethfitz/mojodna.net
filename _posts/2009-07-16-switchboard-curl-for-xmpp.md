@@ -3,7 +3,7 @@ layout: post
 title: "switchboard : XMPP :: curl : HTTP"
 ---
 
-## {{ page.title }}
+## {{ title }}
 
 ### Quick Start
 

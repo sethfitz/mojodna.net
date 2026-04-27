@@ -3,7 +3,7 @@ layout: post
 title: Subscribing to Wordpress.com with Switchboard
 ---
 
-## {{ page.title }}
+## {{ title }}
 
 Last week, Andy Skelton announced [Real-time Wordpress.com
 subscriptions](http://andy.wordpress.com/2009/07/16/real-time-wordpress-com-subscription/)

@@ -3,7 +3,7 @@ layout: post
 title: Switchboard as a Framework
 ---
 
-## {{ page.title }}
+## {{ title }}
 
 While Switchboard is a [useful tool for debugging and probing XMPP
 services](http://mojodna.net/2009/07/16/switchboard-curl-for-xmpp.html), it's

@@ -3,7 +3,7 @@ layout: post
 title: Teach Capistrano to Deploy From a Tag or Branch
 ---
 
-## {{ page.title }}
+## {{ title }}
 
 There comes a time in the life of many an application where it becomes more or
 less stable. And once it becomes stable, it also becomes boring because the

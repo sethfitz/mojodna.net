@@ -3,7 +3,7 @@ layout: post
 title: Extending ActiveRecord Attributes
 ---
 
-## {{ page.title }}
+## {{ title }}
 
 David Black came to speak at the [Boston Ruby
 Group](http://boston.rubygroup.org/) on Tuesday (along with Zed Shaw, making

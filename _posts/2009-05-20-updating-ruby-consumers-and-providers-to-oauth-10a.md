@@ -3,7 +3,7 @@ layout: post
 title: Updating Ruby Consumers and Providers to OAuth 1.0a
 ---
 
-## {{ page.title }}
+## {{ title }}
 
 In a previous post, I did a [quick run-through of the changes that were
 introduced in OAuth

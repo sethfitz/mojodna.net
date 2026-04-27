@@ -3,7 +3,7 @@ layout: post
 title: Classloading in Rails
 ---
 
-## {{ page.title }}
+## {{ title }}
 
 Occasionally, I see code similar to the following used as a shortcut to load
 all model objects. It's usually in a Rake task or somewhere that follows a

@@ -3,7 +3,7 @@ layout: post
 title: An Idiot's Guide to OAuth 1.0a
 ---
 
-## {{ page.title }}
+## {{ title }}
 
 I'm lazy. I don't usually enjoy re-reading things I've already read before
 (Matt Ruff and Neil Stephenson books are an exception). So, as a service to

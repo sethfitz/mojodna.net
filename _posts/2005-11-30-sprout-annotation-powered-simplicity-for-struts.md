@@ -3,7 +3,7 @@ layout: post
 title: "Sprout: Annotation-Powered Simplicity for Struts"
 ---
 
-## {{ page.title }}
+## {{ title }}
 
 ### Overview
 
