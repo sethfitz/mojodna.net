@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "eleventy",
-    "serve": "eleventy --serve",
+    "start": "eleventy --serve",
     "clean": "rm -rf _site"
   },
   "devDependencies": {
