@@ -89,7 +89,10 @@ ESM, Node 20+. Exports a default function that registers:
   - `layout: "post"` as a default (so existing `layout: post` front matter
     is redundant but harmless).
   - `permalink: "/{{ page.date | date: '%Y/%m/%d' }}/{{ page.fileSlug }}.html"`
-    matching Jekyll's default `/YYYY/MM/DD/slug.html`.
+    matching Jekyll's default `/YYYY/MM/DD/slug.html`. Eleventy's
+    `page.fileSlug` strips a leading `YYYY-MM-DD-` from the filename, so
+    `2005-04-19-mbta-maps.markdown` becomes slug `mbta-maps` and `page.date`
+    is parsed from the same prefix — preserving Jekyll's default behavior.
 - Layouts aliases (via `eleventyConfig.addLayoutAlias`): `default` →
   `layouts/default.liquid`, `post` → `layouts/post.liquid`.
 
@@ -124,7 +127,13 @@ ESM, Node 20+. Exports a default function that registers:
   layout: default
   title: Seth Fitzsimmons
   permalink: /index.html
+  eleventyExcludeFromCollections: true
   ```
+  `eleventyExcludeFromCollections: true` is belt-and-suspenders — the
+  posts collection is defined by the `posts` tag (set only in
+  `_posts/_posts.11tydata.json`), so `index.html` would not be picked up
+  anyway, but the explicit flag means a future move to a tag-everything
+  scheme can't accidentally pull `index.html` into the feed loop.
 - Body: existing heading block plus a Liquid loop
   `{% for post in collections.posts reversed %}` emitting
   `<li><span>{{ post.date | date: "%b %-d, %Y" }}</span>:
@@ -150,6 +159,11 @@ ESM, Node 20+. Exports a default function that registers:
   `{% endhighlight %}` → ```` ``` ````, applied to the 13 affected files.
   Performed via `gsed -i` (or equivalent), verified by grepping for any
   remaining `{% highlight` or `{% endhighlight` after the sweep.
+- Pre-flight Liquid check: after the highlight sweep, run
+  `rg '\{[{%]' _posts/` and inspect every match. The known surviving Liquid
+  is the duplicate `## {{ page.title }}` in csspring-cleaning. Anything
+  else is an unintended Liquid token that will either render unexpectedly
+  or break the build; resolve before committing.
 - Prose otherwise untouched. Gist `<script>` embeds, `## {{ page.title }}`
   duplicate, and `http://` links are preserved. The `## {{ page.title }}`
   line will render the title twice on that page; accepted and tracked in
@@ -160,9 +174,9 @@ ESM, Node 20+. Exports a default function that registers:
 - `css/screen.css` kept verbatim.
 - `css/syntax.css` deleted.
 - `css/prism.css` added — Prism's `prism.css` default theme, copied once
-  from `node_modules/prismjs/themes/prism.css` and committed to the repo.
-  An `npm run copy:prism` script regenerates the copy if the theme is ever
-  refreshed.
+  from the `prismjs` npm package and committed to the repo. No script
+  for re-copying; if the theme ever needs refreshing, one `cp` invocation
+  handles it.
 
 ### Drafts
 
@@ -178,10 +192,11 @@ ESM, Node 20+. Exports a default function that registers:
 
 ### GitHub Actions workflow (`.github/workflows/deploy.yml`)
 
-Triggers on push to the source branch (initially `gh-pages`; the workflow
-file uses the active branch name as configured at merge time) and on
-`workflow_dispatch`. Permissions: `contents: read`, `pages: write`,
-`id-token: write`. Concurrency group `pages` with `cancel-in-progress: false`.
+Triggers on push to either `gh-pages` or `main` (covers both possible
+post-merge source-branch outcomes; only one branch will actually receive
+commits) and on `workflow_dispatch`. Permissions: `contents: read`,
+`pages: write`, `id-token: write`. Concurrency group `pages` with
+`cancel-in-progress: false`.
 
 Steps:
 
@@ -201,11 +216,11 @@ Steps:
   - `@11ty/eleventy-plugin-syntaxhighlight`
   - `markdown-it`
   - `markdown-it-anchor`
-  - `prismjs` (for the theme CSS source)
 
   Scripts: `build` (`eleventy`), `serve` (`eleventy --serve`),
-  `clean` (`rm -rf _site`), `copy:prism`
-  (`cp node_modules/prismjs/themes/prism.css css/prism.css`).
+  `clean` (`rm -rf _site`).
+  (`prismjs` is not a runtime dep; the theme CSS is committed once from
+  a one-time install.)
 
 - `.gitignore`:
   - `_site/`
@@ -223,7 +238,15 @@ Steps:
   recent commits `db9ec2f "Escaping"` and `d08c202 "Work-around <code> in
   <em>s"` are evidence of past Redcarpet quirks. Old posts may render with
   subtly different escaping or whitespace. Accepted; not in scope to chase.
-  Anything objectionable becomes work under `blog-2x7`.
+  Drift is surfaced by the validation step that walks every post once in
+  the dev server (below). Anything objectionable becomes work under
+  `blog-2x7`.
+- **Atom feed conformance** — `xmllint --noout` checks well-formedness, not
+  Atom-spec conformance. If a post body contains a stray `]]>` or unusual
+  control characters, the feed could parse as XML but be rejected by
+  strict feed validators. Accepted: drift here is rare and visible to
+  whoever is using a feed reader; can be fixed under `blog-2x7` if
+  reported.
 - **Leftover Liquid in post bodies** — 11ty processes Liquid in markdown by
   default. The `{% highlight %}` sweep is mechanical; any other Liquid in a
   post body will either render (as in csspring-cleaning's `{{ page.title }}`)
@@ -242,13 +265,17 @@ Steps:
    render with Prism syntax colors.
 5. Click `2009-02-24 my work git workflow` — the gist `<script>` embeds
    still render as GitHub-styled gists (assuming live internet).
-6. Visit `/atom.xml` — confirm well-formed (`xmllint --noout _site/atom.xml`),
+6. Walk every post in the dev server once, eyes-on. Markdown drift
+   (Redcarpet → markdown-it) won't be flagged by tooling; visual review of
+   25 short pages is the affordable check. Note anything off into
+   `blog-2x7`.
+7. Visit `/atom.xml` — confirm well-formed (`xmllint --noout _site/atom.xml`),
    25 entries, self-link points at `/atom.xml` (no FeedBurner indirection).
-7. Visit `/2005/04/19/mbta-maps.html` — URL shape matches Jekyll's old
+8. Visit `/2005/04/19/mbta-maps.html` — URL shape matches Jekyll's old
    default.
-8. Visit `/gw2010/` — standalone landing page renders unchanged.
-9. View source on any post — no GA, Woopra, TypeKit, or Disqus markup.
-10. After merge: push to the source branch, watch the GH Action run, and
+9. Visit `/gw2010/` — standalone landing page renders unchanged.
+10. View source on any post — no GA, Woopra, TypeKit, or Disqus markup.
+11. After merge: push to the source branch, watch the GH Action run, and
     verify `mojodna.net` serves the new build.
 
 ## Out of scope
