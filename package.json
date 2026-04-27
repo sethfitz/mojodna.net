@@ -1,0 +1,16 @@
+{
+  "name": "mojodna-net",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "clean": "rm -rf _site"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5",
+    "markdown-it": "^14",
+    "markdown-it-anchor": "^9"
+  }
+}
